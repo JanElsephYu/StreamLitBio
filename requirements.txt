@@ -1,3 +1,1 @@
-Requirements for my app:
-
-*Streamlit
+streamlit
