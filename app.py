@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import time
-from streamlit_searchbox import st_searchbox  # New Component for the Search Feature
+from streamlit_searchbox import st_searchbox
 
 # 1. Page Configuration
 st.set_page_config(
@@ -64,40 +64,47 @@ with col_hero_text:
     """)
     st.write("---")
 
-# 5. DATA LOGIC FOR SEARCHBOX (The "Backend" for your game list)
-# We list all your games here so the search component can find them.
+# 5. DATA LOGIC (UPDATED WITH LINKS)
+# We list all games here with their specific redirection links.
 ALL_GAMES = [
-    {"title": "Minecraft", "genre": "Sandbox", "desc": "The ultimate voxel sandbox for creativity and survival."},
-    {"title": "Terraria", "genre": "Sandbox", "desc": "2D action-adventure sandbox with deep progression."},
-    {"title": "Core Keeper", "genre": "Sandbox", "desc": "Mining sandbox adventure with bosses and relics."},
-    {"title": "Grounded", "genre": "Survival", "desc": "Survival adventure shrunk down in a backyard environment."},
-    {"title": "The Forest", "genre": "Horror Survival", "desc": "Intense survival horror against cannibals."},
-    {"title": "Necesse", "genre": "Sandbox", "desc": "Top-down procedural sandbox action-adventure."},
-    {"title": "Palworld", "genre": "Survival", "desc": "Monster-collecting survival game with automation elements."},
-    {"title": "Satisfactory", "genre": "Simulation", "desc": "First-person open-world factory building."},
-    {"title": "House Flipper", "genre": "Simulation", "desc": "Renovation simulation (flipping houses for profit)."},
-    {"title": "Burger Shop", "genre": "Time Management", "desc": "Fast-paced food making time-management sim."},
-    {"title": "Dragon City", "genre": "Strategy", "desc": "Breeding and battling strategy game with dragons."},
-    {"title": "God of War", "genre": "Action-Adventure", "desc": "Mythological action focused on combat and fatherhood."},
-    {"title": "Ninja Gaiden", "genre": "Action", "desc": "High-difficulty hack-and-slash action."},
-    {"title": "Prototype", "genre": "Action", "desc": "Open-world action featuring a shapeshifting anti-hero."},
-    {"title": "Grand Theft Auto", "genre": "Action", "desc": "Open-world crime and action-adventure."},
-    {"title": "Warframe", "genre": "Shooter", "desc": "High-speed space ninja looter shooter."},
-    {"title": "Fallout", "genre": "RPG", "desc": "Post-apocalyptic RPG exploring the wasteland."},
-    {"title": "Dislyte", "genre": "RPG", "desc": "Urban mythological turn-based RPG."},
-    {"title": "Resident Evil", "genre": "Horror", "desc": "The premier survival horror franchise."},
-    {"title": "Left 4 Dead 2", "genre": "Shooter", "desc": "Classic co-op zombie apocalypse shooter."},
-    {"title": "Miscrits", "genre": "Classic RPG", "desc": "Open-world monster battling RPG (Facebook Classic)."},
-    {"title": "Blood Brothers", "genre": "Classic RPG", "desc": "Dark fantasy vampire RPG by DeNA (Classic)."},
-    {"title": "Hollow Knight", "genre": "Metroidvania", "desc": "Deep lore exploration and challenging combat."},
-    {"title": "Geometry Dash", "genre": "Rhythm", "desc": "Rhythm-based platformer focused on difficulty."},
-    {"title": "Need for Speed", "genre": "Racing", "desc": "Street racing and police chases."},
-    {"title": "Piano Tiles 2", "genre": "Rhythm", "desc": "Reflex-based music rhythm game."}
+    {"title": "Minecraft", "genre": "Sandbox", "desc": "The ultimate voxel sandbox for creativity and survival.", "link": "https://www.minecraft.net/"},
+    {"title": "Terraria", "genre": "Sandbox", "desc": "2D action-adventure sandbox with deep progression.", "link": "https://store.steampowered.com/app/105600/Terraria/"},
+    {"title": "Core Keeper", "genre": "Sandbox", "desc": "Mining sandbox adventure with bosses and relics.", "link": "https://store.steampowered.com/app/1621690/Core_Keeper/"},
+    {"title": "Grounded", "genre": "Survival", "desc": "Survival adventure shrunk down in a backyard environment.", "link": "https://store.steampowered.com/app/962130/Grounded/"},
+    {"title": "The Forest", "genre": "Horror Survival", "desc": "Intense survival horror against cannibals.", "link": "https://store.steampowered.com/app/242760/The_Forest/"},
+    {"title": "Necesse", "genre": "Sandbox", "desc": "Top-down procedural sandbox action-adventure.", "link": "https://store.steampowered.com/app/1169040/Necesse/"},
+    {"title": "Palworld", "genre": "Survival", "desc": "Monster-collecting survival game with automation elements.", "link": "https://store.steampowered.com/app/1623730/Palworld/"},
+    {"title": "Satisfactory", "genre": "Simulation", "desc": "First-person open-world factory building.", "link": "https://store.steampowered.com/app/526870/Satisfactory/"},
+    {"title": "House Flipper", "genre": "Simulation", "desc": "Renovation simulation (flipping houses for profit).", "link": "https://store.steampowered.com/app/613100/House_Flipper/"},
+    {"title": "Burger Shop", "genre": "Time Management", "desc": "Fast-paced food making time-management sim.", "link": "https://store.steampowered.com/app/730840/Burger_Shop/"},
+    {"title": "Dragon City", "genre": "Strategy", "desc": "Breeding and battling strategy game with dragons.", "link": "https://play.google.com/store/apps/details?id=es.socialpoint.DragonCity"},
+    {"title": "God of War", "genre": "Action-Adventure", "desc": "Mythological action focused on combat and fatherhood.", "link": "https://store.steampowered.com/app/1593500/God_of_War/"},
+    {"title": "Ninja Gaiden", "genre": "Action", "desc": "High-difficulty hack-and-slash action.", "link": "https://store.steampowered.com/app/1580780/NINJA_GAIDEN_Master_Collection_NINJA_GAIDEN_Sigma/"},
+    {"title": "Prototype", "genre": "Action", "desc": "Open-world action featuring a shapeshifting anti-hero.", "link": "https://store.steampowered.com/app/10150/Prototype/"},
+    {"title": "Grand Theft Auto V", "genre": "Action", "desc": "Open-world crime and action-adventure.", "link": "https://store.steampowered.com/app/271590/Grand_Theft_Auto_V/"},
+    {"title": "Warframe", "genre": "Shooter", "desc": "High-speed space ninja looter shooter.", "link": "https://store.steampowered.com/app/230410/Warframe/"},
+    {"title": "Fallout 4", "genre": "RPG", "desc": "Post-apocalyptic RPG exploring the wasteland.", "link": "https://store.steampowered.com/app/377160/Fallout_4/"},
+    {"title": "Dislyte", "genre": "RPG", "desc": "Urban mythological turn-based RPG.", "link": "https://dislyte.farlightgames.com/"},
+    {"title": "Resident Evil Village", "genre": "Horror", "desc": "The premier survival horror franchise.", "link": "https://store.steampowered.com/app/1196590/Resident_Evil_Village/"},
+    {"title": "Left 4 Dead 2", "genre": "Shooter", "desc": "Classic co-op zombie apocalypse shooter.", "link": "https://store.steampowered.com/app/550/Left_4_Dead_2/"},
+    {"title": "Miscrits", "genre": "Classic RPG", "desc": "Open-world monster battling RPG (Facebook Classic).", "link": "https://miscrits.fandom.com/wiki/Miscrits:_World_of_Creatures_Wiki"},
+    {"title": "Blood Brothers", "genre": "Classic RPG", "desc": "Dark fantasy vampire RPG by DeNA (Classic).", "link": "https://bloodbrothers.fandom.com/wiki/Blood_Brothers_Wiki"},
+    {"title": "Hollow Knight", "genre": "Metroidvania", "desc": "Deep lore exploration and challenging combat.", "link": "https://store.steampowered.com/app/367520/Hollow_Knight/"},
+    {"title": "Geometry Dash", "genre": "Rhythm", "desc": "Rhythm-based platformer focused on difficulty.", "link": "https://store.steampowered.com/app/322170/Geometry_Dash/"},
+    {"title": "Need for Speed Heat", "genre": "Racing", "desc": "Street racing and police chases.", "link": "https://store.steampowered.com/app/1222680/Need_for_Speed_Heat/"},
+    {"title": "Piano Tiles 2", "genre": "Rhythm", "desc": "Reflex-based music rhythm game.", "link": "https://play.google.com/store/apps/details?id=com.kooapps.pianotiles2gp"}
 ]
 
 # Function required by streamlit-searchbox to filter results
 def search_game_logic(searchterm: str):
     return [g["title"] for g in ALL_GAMES if searchterm.lower() in g["title"].lower()] if searchterm else []
+
+# Helper function to display game link in the tabs
+def display_game_link(title):
+    game = next((g for g in ALL_GAMES if g["title"] == title), None)
+    if game:
+        # Markdown syntax for link: [Title](URL)
+        st.markdown(f"- **[{game['title']}]({game['link']})**: {game['desc']}")
 
 # 6. Main Navigation Tabs
 tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "🎮 Hobbyist Zone"])
@@ -200,7 +207,7 @@ with tab3:
         # Creating a simple DataFrame for the graph
         game_data = pd.DataFrame({
             'Genre': ['Sandbox & Sim', 'Action & RPG', 'Horror & Classics', 'Rhythm & Others'],
-            'Games Played': [11, 7, 4, 5] 
+            'Games Played': [11, 7, 4, 4] 
         })
         # Displaying the Bar Chart
         st.bar_chart(game_data, x="Genre", y="Games Played", color="#800000")
@@ -224,6 +231,8 @@ with tab3:
                 st.success(f"**Found:** {result['title']}")
                 st.write(f"**Genre:** {result['genre']}")
                 st.info(f"📝 {result['desc']}")
+                # Direct Link Button for the searched game
+                st.link_button(f"🔗 Go to {result['title']} Page", result['link'])
 
     st.write("---")
     st.write("A curated list of games I have enjoyed over the years, organized by genre.")
@@ -237,23 +246,13 @@ with tab3:
         col_s1, col_s2 = st.columns(2)
         with col_s1:
             with st.expander("🌲 Survival Sandbox", expanded=True):
-                st.markdown("""
-                * **Minecraft:** The ultimate voxel sandbox for creativity and survival.
-                * **Terraria:** 2D action-adventure sandbox with deep progression.
-                * **Core Keeper:** Mining sandbox adventure with bosses and relics.
-                * **Grounded:** Survival adventure shrunk down in a backyard environment.
-                * **The Forest / Sons of The Forest:** Intense survival horror against cannibals.
-                * **Necesse:** Top-down procedural sandbox action-adventure.
-                * **Palworld:** Monster-collecting survival game with automation elements.
-                """)
+                # Using the helper function to display clickable links
+                for g in ["Minecraft", "Terraria", "Core Keeper", "Grounded", "The Forest", "Necesse", "Palworld"]:
+                    display_game_link(g)
         with col_s2:
              with st.expander("🏭 Simulation & Management", expanded=True):
-                st.markdown("""
-                * **Satisfactory:** First-person open-world factory building.
-                * **House Flipper:** Renovation simulation (flipping houses for profit).
-                * **Burger Shop:** Fast-paced food making time-management sim.
-                * **Dragon City:** Breeding and battling strategy game with dragons.
-                """)
+                for g in ["Satisfactory", "House Flipper", "Burger Shop", "Dragon City"]:
+                    display_game_link(g)
 
     # TAB 2: ACTION & RPG
     with g_tab2:
@@ -261,19 +260,12 @@ with tab3:
         col_a1, col_a2 = st.columns(2)
         with col_a1:
             with st.expander("⚔️ Action-Adventure", expanded=True):
-                st.markdown("""
-                * **God of War:** Mythological action-adventure focused on combat and fatherhood.
-                * **Ninja Gaiden:** High-difficulty hack-and-slash action.
-                * **Prototype:** Open-world action featuring a shapeshifting anti-hero.
-                * **Grand Theft Auto (Series):** Open-world crime and action-adventure.
-                """)
+                for g in ["God of War", "Ninja Gaiden", "Prototype", "Grand Theft Auto V"]:
+                    display_game_link(g)
         with col_a2:
              with st.expander("🚀 RPG & Shooters", expanded=True):
-                st.markdown("""
-                * **Warframe:** High-speed space ninja looter shooter.
-                * **Fallout (Series):** Post-apocalyptic RPG exploring the wasteland.
-                * **Dislyte:** Urban mythological turn-based RPG.
-                """)
+                for g in ["Warframe", "Fallout 4", "Dislyte"]:
+                    display_game_link(g)
 
     # TAB 3: HORROR & CLASSICS
     with g_tab3:
@@ -281,16 +273,12 @@ with tab3:
         col_h1, col_h2 = st.columns(2)
         with col_h1:
             with st.expander("🧟 Horror & Zombies", expanded=True):
-                st.markdown("""
-                * **Resident Evil (Series):** The premier survival horror franchise.
-                * **Left 4 Dead 2:** Classic co-op zombie apocalypse shooter.
-                """)
+                for g in ["Resident Evil Village", "Left 4 Dead 2"]:
+                    display_game_link(g)
         with col_h2:
              with st.expander("💾 Classics & Nostalgia", expanded=True):
-                st.markdown("""
-                * **Miscrits:** Open-world monster battling RPG (Facebook Classic).
-                * **Blood Brothers:** Dark fantasy vampire RPG by DeNA (Classic).
-                """)
+                for g in ["Miscrits", "Blood Brothers"]:
+                    display_game_link(g)
 
     # TAB 4: PLATFORMERS & OTHERS
     with g_tab4:
@@ -298,17 +286,12 @@ with tab3:
         col_o1, col_o2 = st.columns(2)
         with col_o1:
             with st.expander("🏰 Metroidvania & Platformers", expanded=True):
-                st.markdown("""
-                * **Hollow Knight:** Deep lore exploration and challenging combat.
-                * **Hollow Knight: Silksong:** (Anticipated sequel).
-                * **Geometry Dash:** Rhythm-based platformer focused on difficulty.
-                """)
+                for g in ["Hollow Knight", "Geometry Dash"]:
+                    display_game_link(g)
         with col_o2:
              with st.expander("🏎️ Racing & Rhythm", expanded=True):
-                st.markdown("""
-                * **Need for Speed (Series):** Street racing and police chases.
-                * **Piano Tiles 2:** Reflex-based music rhythm game.
-                """)
+                for g in ["Need for Speed Heat", "Piano Tiles 2"]:
+                    display_game_link(g)
 
 # 6. Interactive Footer
 st.divider()
