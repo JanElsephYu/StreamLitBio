@@ -5,12 +5,13 @@ from streamlit_searchbox import st_searchbox
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="Jan Elseph Yu | Professional Portfolio",
+    page_title="Jan Elseph Yu | Portfolio",
     page_icon="🎓",
     layout="wide",
+    initial_sidebar_state="auto" # Collapses sidebar on mobile automatically
 )
 
-# 2. Universal CSS (Theme-Adaptive & Clean)
+# 2. Universal CSS (Mobile-Responsive & Adaptive)
 st.markdown("""
 <style>
     /* Global Font */
@@ -26,16 +27,30 @@ st.markdown("""
         border-radius: 20px;
         font-weight: bold;
         transition: transform 0.2s;
+        width: 100%; /* Force full width on mobile */
     }
     
     .stButton>button:hover {
-        transform: scale(1.05);
+        transform: scale(1.02);
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     
-    /* Wattpad Link specific styling */
+    /* Wattpad Link styling */
     a[href*="wattpad.com"] {
         text-decoration: none;
+    }
+
+    /* --- MOBILE OPTIMIZATION --- */
+    /* Adjust padding for smaller screens */
+    @media (max-width: 768px) {
+        .main .block-container {
+            padding-top: 2rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        h1 {
+            font-size: 2rem !important; /* Smaller title on mobile */
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -43,7 +58,7 @@ st.markdown("""
 # 3. Sidebar Profile
 with st.sidebar:
     # Ensure profile.JPG is uploaded to GitHub
-    st.image("profile.JPG", caption="Jan Elseph Yu | BSIT-4")
+    st.image("profile.JPG", caption="Jan Elseph Yu | BSIT-4", use_container_width=True)
     st.title("Connect")
     st.write("📧 janelsephyu@gmail.com")
     st.write("📍 Cebu City, Philippines")
@@ -52,7 +67,9 @@ with st.sidebar:
     st.caption("© 2026 Academic Portfolio")
 
 # 4. Hero Section
-col_hero_text, col_hero_img = st.columns([2, 1])
+# On mobile, Streamlit automatically stacks these columns vertically
+col_hero_text, col_hero_empty = st.columns([2, 1])
+
 with col_hero_text:
     st.title("Jan Elseph Yu")
     st.subheader("Aspiring IT Professional & Systems Developer")
@@ -64,8 +81,7 @@ with col_hero_text:
     """)
     st.write("---")
 
-# 5. DATA LOGIC (UPDATED WITH LINKS)
-# We list all games here with their specific redirection links.
+# 5. DATA LOGIC (GAMES LIST)
 ALL_GAMES = [
     {"title": "Minecraft", "genre": "Sandbox", "desc": "The ultimate voxel sandbox for creativity and survival.", "link": "https://www.minecraft.net/"},
     {"title": "Terraria", "genre": "Sandbox", "desc": "2D action-adventure sandbox with deep progression.", "link": "https://store.steampowered.com/app/105600/Terraria/"},
@@ -103,7 +119,6 @@ def search_game_logic(searchterm: str):
 def display_game_link(title):
     game = next((g for g in ALL_GAMES if g["title"] == title), None)
     if game:
-        # Markdown syntax for link: [Title](URL)
         st.markdown(f"- **[{game['title']}]({game['link']})**: {game['desc']}")
 
 # 6. Main Navigation Tabs
@@ -179,7 +194,7 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: HOBBIES & GAMES (With Graph + Searchbox) ---
+# --- TAB 3: HOBBIES & GAMES (Mobile-Ready) ---
 with tab3:
     st.header("Beyond the Code")
     
@@ -190,49 +205,44 @@ with tab3:
         with c_img:
             st.markdown("# 📖")
         with c_text:
-            st.write("### Mysterious Adventures Season 1: The New Beginning")
-            st.write("_A story about new beginnings, unfolding mysteries, and the adventures that await._")
-            st.link_button("Read on Wattpad", "https://www.wattpad.com/story/44610822-mysterious-adventures-season-1-the-new-beginning")
+            st.write("### Mysterious Adventures")
+            st.write("_A story about new beginnings, unfolding mysteries, and adventures._")
+            # Using use_container_width to make button easier to tap on mobile
+            st.link_button("Read on Wattpad", "https://www.wattpad.com/story/44610822-mysterious-adventures-season-1-the-new-beginning", use_container_width=True)
 
     st.divider()
 
     # 2. GAMING PORTFOLIO - ANALYTICS & SEARCH
     st.subheader("🎮 Gaming Collection")
     
-    # --- SPLIT LAYOUT: GRAPH on Left, SEARCH on Right ---
+    # Columns stack automatically on mobile
     col_graph, col_search = st.columns([1, 1])
 
     with col_graph:
         st.write("### 📊 Gaming Stats")
-        # Creating a simple DataFrame for the graph
         game_data = pd.DataFrame({
             'Genre': ['Sandbox & Sim', 'Action & RPG', 'Horror & Classics', 'Rhythm & Others'],
             'Games Played': [11, 7, 4, 4] 
         })
-        # Displaying the Bar Chart
-        st.bar_chart(game_data, x="Genre", y="Games Played", color="#800000")
+        st.bar_chart(game_data, x="Genre", y="Games Played", color="#800000", use_container_width=True)
         
     with col_search:
         st.write("### 🔍 Search Library")
         st.caption("Type a game name (e.g., 'Terraria') to see details.")
         
-        # THE SEARCHBOX COMPONENT
         selected_game = st_searchbox(
             search_game_logic,
             placeholder="Search game titles...",
             key="game_searchbox"
         )
         
-        # Display Result if something is selected
         if selected_game:
-            # Find the game details in our list
             result = next((g for g in ALL_GAMES if g["title"] == selected_game), None)
             if result:
                 st.success(f"**Found:** {result['title']}")
                 st.write(f"**Genre:** {result['genre']}")
                 st.info(f"📝 {result['desc']}")
-                # Direct Link Button for the searched game
-                st.link_button(f"🔗 Go to {result['title']} Page", result['link'])
+                st.link_button(f"🔗 Go to {result['title']} Page", result['link'], use_container_width=True)
 
     st.write("---")
     st.write("A curated list of games I have enjoyed over the years, organized by genre.")
@@ -240,13 +250,11 @@ with tab3:
     # Organized into 4 Tabs for better readability
     g_tab1, g_tab2, g_tab3, g_tab4 = st.tabs(["🏗️ Sandbox & Sim", "⚔️ Action & RPG", "👻 Horror & Classics", "🎵 Rhythm & Others"])
 
-    # TAB 1: SANDBOX & SIMULATION
     with g_tab1:
         st.caption("Building, surviving, and managing worlds.")
         col_s1, col_s2 = st.columns(2)
         with col_s1:
             with st.expander("🌲 Survival Sandbox", expanded=True):
-                # Using the helper function to display clickable links
                 for g in ["Minecraft", "Terraria", "Core Keeper", "Grounded", "The Forest", "Necesse", "Palworld"]:
                     display_game_link(g)
         with col_s2:
@@ -254,7 +262,6 @@ with tab3:
                 for g in ["Satisfactory", "House Flipper", "Burger Shop", "Dragon City"]:
                     display_game_link(g)
 
-    # TAB 2: ACTION & RPG
     with g_tab2:
         st.caption("High-octane combat and deep storytelling.")
         col_a1, col_a2 = st.columns(2)
@@ -267,7 +274,6 @@ with tab3:
                 for g in ["Warframe", "Fallout 4", "Dislyte"]:
                     display_game_link(g)
 
-    # TAB 3: HORROR & CLASSICS
     with g_tab3:
         st.caption("Scary moments and nostalgic memories.")
         col_h1, col_h2 = st.columns(2)
@@ -280,7 +286,6 @@ with tab3:
                 for g in ["Miscrits", "Blood Brothers"]:
                     display_game_link(g)
 
-    # TAB 4: PLATFORMERS & OTHERS
     with g_tab4:
         st.caption("Platforming, speed, and rhythm.")
         col_o1, col_o2 = st.columns(2)
