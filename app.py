@@ -1,100 +1,84 @@
 import streamlit as st
-import time
 
-# 1. Page Configuration (Aesthetics & Branding)
+# 1. Page Setup for Professionalism
 st.set_page_config(
-    page_title="Jan Elseph Yu | Professional Bio",
+    page_title="Jan Elseph Yu | Academic Portfolio",
     page_icon="🎓",
     layout="wide",
-    initial_sidebar_state="expanded",
 )
 
-# 2. Sidebar with Profile Stats
-with st.sidebar:
-    st.image("https://via.placeholder.com/150", caption="Jan Elseph Yu - BSIT Student")
-    st.title("Quick Info")
-    st.write("📍 Cebu City, Philippines")
-    st.write("🎓 4th Year BSIT @ CIT-U")
-    
-    st.divider()
-    
-    # Progress bar for your OJT or Semester progress
-    st.write("Graduation Progress")
-    st.progress(85)
-    
-    st.write("---")
-    st.subheader("Interests")
-    st.info("🎮 Hollow Knight & Core Keeper")
-    st.success("✍️ Creative Story Writing")
-
-# 3. Main Hero Section (Visual Impact)
-col1, col2 = st.columns([2, 1])
+# 2. Hero Section: Header & Branding
+# Using columns to create a clean, modern header
+col1, col2 = st.columns([3, 1])
 
 with col1:
-    st.title("Hello, I'm Jan Elseph Yu 👋")
-    st.subheader("Aspiring IT Professional & Storyteller")
-    st.write("""
-    I am a dedicated 4th-year IT student passionate about building systems that make a difference. 
-    From blockchain node setup to gamified e-learning platforms, I love exploring the intersection of 
-    technology and user experience.
-    """)
+    st.title("Jan Elseph Yu")
+    st.subheader("Bachelor of Science in Information Technology")
+    st.write("📍 **Cebu Institute of Technology - University**")
+    st.write("Focus: Systems Administration & Blockchain Technology")
 
 with col2:
-    # Using metrics for a professional "dashboard" feel
-    st.metric(label="Tech Stack", value="10+ Tools")
-    st.metric(label="Capstone Status", value="Testing Phase")
+    # A professional metric to show academic standing
+    st.metric(label="Current Status", value="4th Year Student")
 
 st.divider()
 
-# 4. Interactive Tabs (Organization & Component Variety)
-tab1, tab2, tab3, tab4 = st.tabs(["📖 My Story", "🛠 Skill Set", "🚀 Projects", "📩 Contact"])
+# 3. Main Navigation using Tabs (Aesthetic & Organized)
+tab1, tab2, tab3 = st.tabs(["📖 Autobiography", "🚀 Technical Projects", "🛠 Skills & Certifications"])
 
 with tab1:
-    st.header("Autobiography")
-    st.write("""
-    My journey into the world of technology began back in the 3rd grade when I started 
-    writing stories. That love for creation evolved into coding. Today, I am finishing 
-    my BSIT degree at the Cebu Institute of Technology - University, specializing in 
-    Information Assurance and Cloud Architecting.
-    """)
+    st.header("My Academic Journey")
+    # Using columns for a more visual layout than just text
+    left_co, right_co = st.columns(2)
+    
+    with left_co:
+        st.write("### Background")
+        # [Placeholder: Add your specific personal background story here]
+        st.write("""
+        I am currently a senior IT student in Cebu City, balancing rigorous academic 
+        coursework with hands-on technical training. My interest in technology 
+        stems from a lifelong passion for creating and building systems.
+        """)
+        
+    with right_co:
+        st.write("### Current Focus")
+        st.info("Currently undergoing **On-the-Job Training (OJT)** to bridge the gap between classroom theory and industry practice.")
+        st.write("Projected Graduation: 2026")
 
 with tab2:
-    st.header("Technical Arsenal")
-    # Using columns inside tabs for better spacing
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        st.write("**Languages**")
-        st.code("Python, Java, C++")
-    with c2:
-        st.write("**Web Tech**")
-        st.code("React JS, Springboot, MySQL")
-    with c3:
-        st.write("**Infrastructure**")
-        st.code("AWS, Blockchain, Linux")
+    st.header("Academic Portfolio")
+    # Using Expanders for "Full Utilization" of components
+    with st.expander("⭐ SyntaxType: Gamified E-Learning"):
+        st.write("A specialized platform developed for first-year BSIT students to improve typing proficiency within a technical context.")
+        st.write("**Tech Stack:** [Add specific technologies used]")
+        
+    with st.expander("🛡️ CloudFour: Systems Admin Project"):
+        st.write("A group project focused on managing storage solutions and RAID configurations for enterprise-level systems.")
+        
+    with st.expander("🔗 Blockchain Research & Development"):
+        st.write("Handwritten research and practical node setup involving the Linux environment and Cardano blockchain.")
 
 with tab3:
-    st.header("Featured Work")
-    # Using expanders for clean project descriptions
-    with st.expander("⭐ SyntaxType - E-Learning Platform"):
-        st.write("A gamified typing-based platform designed for first-year BSIT students at CIT-U.")
-        st.write("**Role:** Lead Developer")
-        
-    with st.expander("☁️ CloudFour - Systems Admin Project"):
-        st.write("Focused on RAID configurations and storage management solutions.")
-        st.write("**Role:** Systems Architect")
+    st.header("Competencies")
+    
+    # Progress bars add a nice visual touch to represent skill levels
+    st.write("Programming Proficiency")
+    st.progress(85, text="Java & C++")
+    st.progress(70, text="React JS & Web Development")
+    st.progress(60, text="Cloud Architecting (AWS Academy)")
+    
+    st.divider()
+    
+    # Using a professional-looking 'Success' box for certifications
+    st.subheader("Certifications & Courses")
+    st.success("✅ AWS Academy Cloud Architecting")
+    st.success("✅ Introduction to Blockchain (CSIT360)")
 
-with tab4:
-    st.header("Let's Collaborate!")
-    # Using st.form for "Full Utilization" points
-    with st.form("contact_form"):
-        u_name = st.text_input("Name")
-        u_email = st.text_input("Email")
-        u_msg = st.text_area("Your Message")
-        submit_button = st.form_submit_button("Send Message")
-        
-        if submit_button:
-            # Adding visual feedback for extra aesthetic points
-            with st.spinner("Processing..."):
-                time.sleep(1)
-            st.success(f"Thank you, {u_name}! I'll get back to you soon.")
-            st.balloons()
+# 4. Footer Interactivity
+st.divider()
+if st.button("Celebrate Completion!"):
+    st.balloons()
+    st.toast("Portfolio Successfully Loaded!", icon='🎉')
+
+# Footer text
+st.caption("Developed by Jan Elseph Yu | © 2026 Academic Portfolio Assignment")
