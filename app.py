@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import time
+from streamlit_searchbox import st_searchbox  # New Component for the Search Feature
 
 # 1. Page Configuration
 st.set_page_config(
@@ -63,7 +64,42 @@ with col_hero_text:
     """)
     st.write("---")
 
-# 5. Main Navigation Tabs
+# 5. DATA LOGIC FOR SEARCHBOX (The "Backend" for your game list)
+# We list all your games here so the search component can find them.
+ALL_GAMES = [
+    {"title": "Minecraft", "genre": "Sandbox", "desc": "The ultimate voxel sandbox for creativity and survival."},
+    {"title": "Terraria", "genre": "Sandbox", "desc": "2D action-adventure sandbox with deep progression."},
+    {"title": "Core Keeper", "genre": "Sandbox", "desc": "Mining sandbox adventure with bosses and relics."},
+    {"title": "Grounded", "genre": "Survival", "desc": "Survival adventure shrunk down in a backyard environment."},
+    {"title": "The Forest", "genre": "Horror Survival", "desc": "Intense survival horror against cannibals."},
+    {"title": "Necesse", "genre": "Sandbox", "desc": "Top-down procedural sandbox action-adventure."},
+    {"title": "Palworld", "genre": "Survival", "desc": "Monster-collecting survival game with automation elements."},
+    {"title": "Satisfactory", "genre": "Simulation", "desc": "First-person open-world factory building."},
+    {"title": "House Flipper", "genre": "Simulation", "desc": "Renovation simulation (flipping houses for profit)."},
+    {"title": "Burger Shop", "genre": "Time Management", "desc": "Fast-paced food making time-management sim."},
+    {"title": "Dragon City", "genre": "Strategy", "desc": "Breeding and battling strategy game with dragons."},
+    {"title": "God of War", "genre": "Action-Adventure", "desc": "Mythological action focused on combat and fatherhood."},
+    {"title": "Ninja Gaiden", "genre": "Action", "desc": "High-difficulty hack-and-slash action."},
+    {"title": "Prototype", "genre": "Action", "desc": "Open-world action featuring a shapeshifting anti-hero."},
+    {"title": "Grand Theft Auto", "genre": "Action", "desc": "Open-world crime and action-adventure."},
+    {"title": "Warframe", "genre": "Shooter", "desc": "High-speed space ninja looter shooter."},
+    {"title": "Fallout", "genre": "RPG", "desc": "Post-apocalyptic RPG exploring the wasteland."},
+    {"title": "Dislyte", "genre": "RPG", "desc": "Urban mythological turn-based RPG."},
+    {"title": "Resident Evil", "genre": "Horror", "desc": "The premier survival horror franchise."},
+    {"title": "Left 4 Dead 2", "genre": "Shooter", "desc": "Classic co-op zombie apocalypse shooter."},
+    {"title": "Miscrits", "genre": "Classic RPG", "desc": "Open-world monster battling RPG (Facebook Classic)."},
+    {"title": "Blood Brothers", "genre": "Classic RPG", "desc": "Dark fantasy vampire RPG by DeNA (Classic)."},
+    {"title": "Hollow Knight", "genre": "Metroidvania", "desc": "Deep lore exploration and challenging combat."},
+    {"title": "Geometry Dash", "genre": "Rhythm", "desc": "Rhythm-based platformer focused on difficulty."},
+    {"title": "Need for Speed", "genre": "Racing", "desc": "Street racing and police chases."},
+    {"title": "Piano Tiles 2", "genre": "Rhythm", "desc": "Reflex-based music rhythm game."}
+]
+
+# Function required by streamlit-searchbox to filter results
+def search_game_logic(searchterm: str):
+    return [g["title"] for g in ALL_GAMES if searchterm.lower() in g["title"].lower()] if searchterm else []
+
+# 6. Main Navigation Tabs
 tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "🎮 Hobbyist Zone"])
 
 # --- TAB 1: PERSONAL PROFILE ---
@@ -136,7 +172,7 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: HOBBIES & GAMES (With Graph) ---
+# --- TAB 3: HOBBIES & GAMES (With Graph + Searchbox) ---
 with tab3:
     st.header("Beyond the Code")
     
@@ -153,25 +189,41 @@ with tab3:
 
     st.divider()
 
-    # 2. GAMING PORTFOLIO - The Complete Collection
+    # 2. GAMING PORTFOLIO - ANALYTICS & SEARCH
     st.subheader("🎮 Gaming Collection")
     
-    # --- NEW FEATURE: GAMING ANALYTICS GRAPH ---
-    # Creating a simple DataFrame for the graph
-    game_data = pd.DataFrame({
-        'Genre': ['Sandbox & Sim', 'Action & RPG', 'Horror & Classics', 'Rhythm & Others'],
-        'Games Played': [11, 7, 4, 5] 
-    })
-    
-    col_graph_text, col_graph_viz = st.columns([1, 2])
-    with col_graph_text:
+    # --- SPLIT LAYOUT: GRAPH on Left, SEARCH on Right ---
+    col_graph, col_search = st.columns([1, 1])
+
+    with col_graph:
         st.write("### 📊 Gaming Stats")
-        st.write("I enjoy a wide variety of genres, with a strong preference for **Sandbox & Simulation** games that allow for creativity and management.")
-        st.caption("Data visualization of my current game library.")
-        
-    with col_graph_viz:
+        # Creating a simple DataFrame for the graph
+        game_data = pd.DataFrame({
+            'Genre': ['Sandbox & Sim', 'Action & RPG', 'Horror & Classics', 'Rhythm & Others'],
+            'Games Played': [11, 7, 4, 5] 
+        })
         # Displaying the Bar Chart
         st.bar_chart(game_data, x="Genre", y="Games Played", color="#800000")
+        
+    with col_search:
+        st.write("### 🔍 Search Library")
+        st.caption("Type a game name (e.g., 'Terraria') to see details.")
+        
+        # THE SEARCHBOX COMPONENT
+        selected_game = st_searchbox(
+            search_game_logic,
+            placeholder="Search game titles...",
+            key="game_searchbox"
+        )
+        
+        # Display Result if something is selected
+        if selected_game:
+            # Find the game details in our list
+            result = next((g for g in ALL_GAMES if g["title"] == selected_game), None)
+            if result:
+                st.success(f"**Found:** {result['title']}")
+                st.write(f"**Genre:** {result['genre']}")
+                st.info(f"📝 {result['desc']}")
 
     st.write("---")
     st.write("A curated list of games I have enjoyed over the years, organized by genre.")
