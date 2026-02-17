@@ -135,7 +135,7 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: HOBBIES & GAMES (Updated List) ---
+# --- TAB 3: HOBBIES & GAMES (ALL 26 GAMES) ---
 with tab3:
     st.header("Beyond the Code")
     
@@ -152,13 +152,14 @@ with tab3:
 
     st.divider()
 
-    # 2. GAMING PORTFOLIO
+    # 2. GAMING PORTFOLIO - The Complete Collection
     st.subheader("🎮 Gaming Collection")
     st.write("A curated list of games I have enjoyed over the years, organized by genre.")
 
-    # Using Tabs inside the Hobby section for cleaner organization of the long list
+    # Organized into 4 Tabs for better readability
     g_tab1, g_tab2, g_tab3, g_tab4 = st.tabs(["🏗️ Sandbox & Sim", "⚔️ Action & RPG", "👻 Horror & Classics", "🎵 Rhythm & Others"])
 
+    # TAB 1: SANDBOX & SIMULATION
     with g_tab1:
         st.caption("Building, surviving, and managing worlds.")
         col_s1, col_s2 = st.columns(2)
@@ -182,6 +183,7 @@ with tab3:
                 * **Dragon City:** Breeding and battling strategy game with dragons.
                 """)
 
+    # TAB 2: ACTION & RPG
     with g_tab2:
         st.caption("High-octane combat and deep storytelling.")
         col_a1, col_a2 = st.columns(2)
@@ -201,6 +203,7 @@ with tab3:
                 * **Dislyte:** Urban mythological turn-based RPG.
                 """)
 
+    # TAB 3: HORROR & CLASSICS
     with g_tab3:
         st.caption("Scary moments and nostalgic memories.")
         col_h1, col_h2 = st.columns(2)
@@ -217,6 +220,7 @@ with tab3:
                 * **Blood Brothers:** Dark fantasy vampire RPG by DeNA (Classic).
                 """)
 
+    # TAB 4: PLATFORMERS & OTHERS
     with g_tab4:
         st.caption("Platforming, speed, and rhythm.")
         col_o1, col_o2 = st.columns(2)
