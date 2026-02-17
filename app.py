@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 import time
 
 # 1. Page Configuration
@@ -135,7 +136,7 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: HOBBIES & GAMES (ALL 26 GAMES) ---
+# --- TAB 3: HOBBIES & GAMES (With Graph) ---
 with tab3:
     st.header("Beyond the Code")
     
@@ -154,6 +155,25 @@ with tab3:
 
     # 2. GAMING PORTFOLIO - The Complete Collection
     st.subheader("🎮 Gaming Collection")
+    
+    # --- NEW FEATURE: GAMING ANALYTICS GRAPH ---
+    # Creating a simple DataFrame for the graph
+    game_data = pd.DataFrame({
+        'Genre': ['Sandbox & Sim', 'Action & RPG', 'Horror & Classics', 'Rhythm & Others'],
+        'Games Played': [11, 7, 4, 5] 
+    })
+    
+    col_graph_text, col_graph_viz = st.columns([1, 2])
+    with col_graph_text:
+        st.write("### 📊 Gaming Stats")
+        st.write("I enjoy a wide variety of genres, with a strong preference for **Sandbox & Simulation** games that allow for creativity and management.")
+        st.caption("Data visualization of my current game library.")
+        
+    with col_graph_viz:
+        # Displaying the Bar Chart
+        st.bar_chart(game_data, x="Genre", y="Games Played", color="#800000")
+
+    st.write("---")
     st.write("A curated list of games I have enjoyed over the years, organized by genre.")
 
     # Organized into 4 Tabs for better readability
