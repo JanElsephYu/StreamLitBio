@@ -8,18 +8,15 @@ st.set_page_config(
     page_title="Jan Elseph Yu | Portfolio",
     page_icon="🎓",
     layout="wide",
-    initial_sidebar_state="auto" # Collapses sidebar on mobile automatically
+    initial_sidebar_state="auto"
 )
 
 # 2. Universal CSS (Mobile-Responsive & Adaptive)
 st.markdown("""
 <style>
-    /* Global Font */
     html, body, [class*="css"] {
         font-family: 'Helvetica Neue', sans-serif;
     }
-
-    /* CIT-U Maroon & Gold Gradient Buttons */
     .stButton>button {
         background: linear-gradient(45deg, #800000, #ffcc00);
         color: white !important;
@@ -27,21 +24,15 @@ st.markdown("""
         border-radius: 20px;
         font-weight: bold;
         transition: transform 0.2s;
-        width: 100%; /* Force full width on mobile */
+        width: 100%;
     }
-    
     .stButton>button:hover {
         transform: scale(1.02);
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    
-    /* Wattpad Link styling */
     a[href*="wattpad.com"] {
         text-decoration: none;
     }
-
-    /* --- MOBILE OPTIMIZATION --- */
-    /* Adjust padding for smaller screens */
     @media (max-width: 768px) {
         .main .block-container {
             padding-top: 2rem;
@@ -49,7 +40,7 @@ st.markdown("""
             padding-right: 1rem;
         }
         h1 {
-            font-size: 2rem !important; /* Smaller title on mobile */
+            font-size: 2rem !important;
         }
     }
 </style>
@@ -57,7 +48,6 @@ st.markdown("""
 
 # 3. Sidebar Profile
 with st.sidebar:
-    # Ensure profile.JPG is uploaded to GitHub
     st.image("profile.JPG", caption="Jan Elseph Yu | BSIT-4", use_container_width=True)
     st.title("Connect")
     st.write("📧 janelsephyu@gmail.com")
@@ -67,9 +57,7 @@ with st.sidebar:
     st.caption("© 2026 Academic Portfolio")
 
 # 4. Hero Section
-# On mobile, Streamlit automatically stacks these columns vertically
 col_hero_text, col_hero_empty = st.columns([2, 1])
-
 with col_hero_text:
     st.title("Jan Elseph Yu")
     st.subheader("Aspiring IT Professional & Systems Developer")
@@ -111,11 +99,9 @@ ALL_GAMES = [
     {"title": "Piano Tiles 2", "genre": "Rhythm", "desc": "Reflex-based music rhythm game.", "link": "https://play.google.com/store/apps/details?id=com.kooapps.pianotiles2gp"}
 ]
 
-# Function required by streamlit-searchbox to filter results
 def search_game_logic(searchterm: str):
     return [g["title"] for g in ALL_GAMES if searchterm.lower() in g["title"].lower()] if searchterm else []
 
-# Helper function to display game link in the tabs
 def display_game_link(title):
     game = next((g for g in ALL_GAMES if g["title"] == title), None)
     if game:
@@ -124,20 +110,16 @@ def display_game_link(title):
 # 6. Main Navigation Tabs
 tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "🎮 Hobbyist Zone"])
 
-# --- TAB 1: PERSONAL PROFILE ---
 with tab1:
     st.header("My Biography")
-    
     with st.container(border=True):
         col1, col2 = st.columns(2)
-        
         with col1:
             st.info("📌 **Personal Details**")
             st.write("**Full Name:** Jan Elseph Yu")
             st.write("**Birthday:** January 11, 2001") 
             st.write("**Age:** 25 Years Old") 
             st.write("**Address:** Cebu City, Philippines")
-        
         with col2:
             st.success("🎓 **Education**")
             st.write("**Course:** BS Information Technology")
@@ -153,13 +135,10 @@ with tab1:
     managing scholarship applications.
     """)
 
-# --- TAB 2: FEATURED PROJECTS ---
 with tab2:
     st.header("Project Portfolio")
     st.caption("Hover over the cards below to see details.")
-
     col_proj1, col_proj2 = st.columns(2)
-    
     with col_proj1:
         with st.expander("⭐ GIPS (Grocery Indoor Positioning System)", expanded=True):
             st.write("**Platform:** Android Application")
@@ -168,7 +147,6 @@ with tab2:
             - 🗺️ **Indoor Mapping:** Locates specific aisles and shelves.
             - 🛒 **Smart Cart:** Manages shopping lists and availability.
             """)
-            
         with st.expander("🎓 SEMS (Scholarship & Enrollment Management System)", expanded=True):
             st.write("**Platform:** Web & Mobile System")
             st.write("""
@@ -176,7 +154,6 @@ with tab2:
             - 📂 **Data Management:** Handles student records and scholarship requirements.
             - 📊 **Reporting:** Generates automated reports for the OAS.
             """)
-
     with col_proj2:
         with st.expander("📱 NASMS (Non-Academic Scholar Management System)", expanded=True):
             st.write("**Platform:** Mobile Application (CIT-U)")
@@ -185,7 +162,6 @@ with tab2:
             - 📄 **PDF Conversion:** In-app document processing.
             - ☁️ **Cloud Upload:** Direct upload for Grades and School IDs.
             """)
-            
         with st.expander("⌨️ SyntaxType (Capstone Project)", expanded=True):
             st.write("**Platform:** Web Application")
             st.write("""
@@ -194,11 +170,8 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: HOBBIES & GAMES (Mobile-Ready) ---
 with tab3:
     st.header("Beyond the Code")
-    
-    # 1. CREATIVE WRITING
     st.subheader("✍️ Creative Writing")
     with st.container(border=True):
         c_img, c_text = st.columns([1, 4])
@@ -207,17 +180,11 @@ with tab3:
         with c_text:
             st.write("### Mysterious Adventures")
             st.write("_A story about new beginnings, unfolding mysteries, and adventures._")
-            # Using use_container_width to make button easier to tap on mobile
             st.link_button("Read on Wattpad", "https://www.wattpad.com/story/44610822-mysterious-adventures-season-1-the-new-beginning", use_container_width=True)
 
     st.divider()
-
-    # 2. GAMING PORTFOLIO - ANALYTICS & SEARCH
     st.subheader("🎮 Gaming Collection")
-    
-    # Columns stack automatically on mobile
     col_graph, col_search = st.columns([1, 1])
-
     with col_graph:
         st.write("### 📊 Gaming Stats")
         game_data = pd.DataFrame({
@@ -225,17 +192,14 @@ with tab3:
             'Games Played': [11, 7, 4, 4] 
         })
         st.bar_chart(game_data, x="Genre", y="Games Played", color="#800000", use_container_width=True)
-        
     with col_search:
         st.write("### 🔍 Search Library")
         st.caption("Type a game name (e.g., 'Terraria') to see details.")
-        
         selected_game = st_searchbox(
             search_game_logic,
             placeholder="Search game titles...",
             key="game_searchbox"
         )
-        
         if selected_game:
             result = next((g for g in ALL_GAMES if g["title"] == selected_game), None)
             if result:
@@ -246,8 +210,6 @@ with tab3:
 
     st.write("---")
     st.write("A curated list of games I have enjoyed over the years, organized by genre.")
-
-    # Organized into 4 Tabs for better readability
     g_tab1, g_tab2, g_tab3, g_tab4 = st.tabs(["🏗️ Sandbox & Sim", "⚔️ Action & RPG", "👻 Horror & Classics", "🎵 Rhythm & Others"])
 
     with g_tab1:
@@ -261,7 +223,6 @@ with tab3:
              with st.expander("🏭 Simulation & Management", expanded=True):
                 for g in ["Satisfactory", "House Flipper", "Burger Shop", "Dragon City"]:
                     display_game_link(g)
-
     with g_tab2:
         st.caption("High-octane combat and deep storytelling.")
         col_a1, col_a2 = st.columns(2)
@@ -273,7 +234,6 @@ with tab3:
              with st.expander("🚀 RPG & Shooters", expanded=True):
                 for g in ["Warframe", "Fallout 4", "Dislyte"]:
                     display_game_link(g)
-
     with g_tab3:
         st.caption("Scary moments and nostalgic memories.")
         col_h1, col_h2 = st.columns(2)
@@ -285,7 +245,6 @@ with tab3:
              with st.expander("💾 Classics & Nostalgia", expanded=True):
                 for g in ["Miscrits", "Blood Brothers"]:
                     display_game_link(g)
-
     with g_tab4:
         st.caption("Platforming, speed, and rhythm.")
         col_o1, col_o2 = st.columns(2)
@@ -298,10 +257,8 @@ with tab3:
                 for g in ["Need for Speed Heat", "Piano Tiles 2"]:
                     display_game_link(g)
 
-# 6. Interactive Footer
 st.divider()
 st.write("### Interactive Feedback")
-
 b1, b2, b3 = st.columns([1, 2, 1])
 with b2:
     if st.button("Click to Celebrate My Work! 🚀", use_container_width=True):
