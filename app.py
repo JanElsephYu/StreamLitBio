@@ -127,8 +127,9 @@ with col_hero_text:
     """)
     st.write("---")
 
-# 5. DATA LOGIC (GAMES LIST)
+# 5. DATA LOGIC (UPDATED WITH NEW GAMES)
 ALL_GAMES = [
+    # --- SANDBOX & SIM ---
     {"title": "Minecraft", "genre": "Sandbox", "desc": "The ultimate voxel sandbox for creativity and survival.", "link": "https://www.minecraft.net/"},
     {"title": "Terraria", "genre": "Sandbox", "desc": "2D action-adventure sandbox with deep progression.", "link": "https://store.steampowered.com/app/105600/Terraria/"},
     {"title": "Core Keeper", "genre": "Sandbox", "desc": "Mining sandbox adventure with bosses and relics.", "link": "https://store.steampowered.com/app/1621690/Core_Keeper/"},
@@ -140,6 +141,9 @@ ALL_GAMES = [
     {"title": "House Flipper", "genre": "Simulation", "desc": "Renovation simulation (flipping houses for profit).", "link": "https://store.steampowered.com/app/613100/House_Flipper/"},
     {"title": "Burger Shop", "genre": "Time Management", "desc": "Fast-paced food making time-management sim.", "link": "https://store.steampowered.com/app/730840/Burger_Shop/"},
     {"title": "Dragon City", "genre": "Strategy", "desc": "Breeding and battling strategy game with dragons.", "link": "https://play.google.com/store/apps/details?id=es.socialpoint.DragonCity"},
+    {"title": "Bloons TD 6", "genre": "Strategy", "desc": "The ultimate 3D tower defense game with monkeys and balloons.", "link": "https://store.steampowered.com/app/960090/Bloons_TD_6/"}, # ADDED
+    
+    # --- ACTION & RPG ---
     {"title": "God of War", "genre": "Action-Adventure", "desc": "Mythological action focused on combat and fatherhood.", "link": "https://store.steampowered.com/app/1593500/God_of_War/"},
     {"title": "Ninja Gaiden", "genre": "Action", "desc": "High-difficulty hack-and-slash action.", "link": "https://store.steampowered.com/app/1580780/NINJA_GAIDEN_Master_Collection_NINJA_GAIDEN_Sigma/"},
     {"title": "Prototype", "genre": "Action", "desc": "Open-world action featuring a shapeshifting anti-hero.", "link": "https://store.steampowered.com/app/10150/Prototype/"},
@@ -147,14 +151,25 @@ ALL_GAMES = [
     {"title": "Warframe", "genre": "Shooter", "desc": "High-speed space ninja looter shooter.", "link": "https://store.steampowered.com/app/230410/Warframe/"},
     {"title": "Fallout 4", "genre": "RPG", "desc": "Post-apocalyptic RPG exploring the wasteland.", "link": "https://store.steampowered.com/app/377160/Fallout_4/"},
     {"title": "Dislyte", "genre": "RPG", "desc": "Urban mythological turn-based RPG.", "link": "https://dislyte.farlightgames.com/"},
+    {"title": "Mobile Legends: Bang Bang", "genre": "MOBA", "desc": "Fast-paced 5v5 mobile battle arena with diverse heroes.", "link": "https://m.mobilelegends.com/"}, # ADDED
+    {"title": "Guardian Tales", "genre": "Action RPG", "desc": "Retro-style pixel action RPG with puzzles and engaging story.", "link": "https://guardiantales.com/"}, # ADDED
+    {"title": "King God Castle", "genre": "Strategy", "desc": "Strategic defense game using heroes and divine powers.", "link": "https://play.google.com/store/apps/details?id=com.awesomepiece.castle"}, # ADDED
+    {"title": "Pokemon", "genre": "RPG", "desc": "The iconic creature-collecting and battling RPG franchise.", "link": "https://www.pokemon.com/"}, # ADDED
+    {"title": "Risk of Rain 2", "genre": "Roguelike", "desc": "Multiplayer roguelike shooter with scaling difficulty.", "link": "https://store.steampowered.com/app/632360/Risk_of_Rain_2/"}, # ADDED
+
+    # --- HORROR & CLASSICS ---
     {"title": "Resident Evil Village", "genre": "Horror", "desc": "The premier survival horror franchise.", "link": "https://store.steampowered.com/app/1196590/Resident_Evil_Village/"},
     {"title": "Left 4 Dead 2", "genre": "Shooter", "desc": "Classic co-op zombie apocalypse shooter.", "link": "https://store.steampowered.com/app/550/Left_4_Dead_2/"},
     {"title": "Miscrits", "genre": "Classic RPG", "desc": "Open-world monster battling RPG (Facebook Classic).", "link": "https://miscrits.fandom.com/wiki/Miscrits:_World_of_Creatures_Wiki"},
     {"title": "Blood Brothers", "genre": "Classic RPG", "desc": "Dark fantasy vampire RPG by DeNA (Classic).", "link": "https://bloodbrothers.fandom.com/wiki/Blood_Brothers_Wiki"},
+    {"title": "Adventure Quest Worlds", "genre": "MMORPG", "desc": "Classic 2D browser-based fantasy MMORPG.", "link": "https://www.aq.com/"}, # ADDED
+
+    # --- RHYTHM & OTHERS ---
     {"title": "Hollow Knight", "genre": "Metroidvania", "desc": "Deep lore exploration and challenging combat.", "link": "https://store.steampowered.com/app/367520/Hollow_Knight/"},
     {"title": "Geometry Dash", "genre": "Rhythm", "desc": "Rhythm-based platformer focused on difficulty.", "link": "https://store.steampowered.com/app/322170/Geometry_Dash/"},
     {"title": "Need for Speed Heat", "genre": "Racing", "desc": "Street racing and police chases.", "link": "https://store.steampowered.com/app/1222680/Need_for_Speed_Heat/"},
-    {"title": "Piano Tiles 2", "genre": "Rhythm", "desc": "Reflex-based music rhythm game.", "link": "https://play.google.com/store/apps/details?id=com.kooapps.pianotiles2gp"}
+    {"title": "Piano Tiles 2", "genre": "Rhythm", "desc": "Reflex-based music rhythm game.", "link": "https://play.google.com/store/apps/details?id=com.kooapps.pianotiles2gp"},
+    {"title": "Wordscapes", "genre": "Puzzle", "desc": "Relaxing word puzzle game combining crosswords and anagrams.", "link": "https://play.google.com/store/apps/details?id=com.peoplefun.wordcross"} # ADDED
 ]
 
 def search_game_logic(searchterm: str):
@@ -245,14 +260,15 @@ with tab3:
     col_graph, col_search = st.columns([1, 1])
     with col_graph:
         st.write("### 📊 Gaming Stats")
+        # Updated counts based on the new total of games (34 Total)
         game_data = pd.DataFrame({
             'Genre': ['Sandbox & Sim', 'Action & RPG', 'Horror & Classics', 'Rhythm & Others'],
-            'Games Played': [11, 7, 4, 4] 
+            'Games Played': [12, 12, 5, 5] 
         })
         st.bar_chart(game_data, x="Genre", y="Games Played", color="#800000", use_container_width=True)
     with col_search:
         st.write("### 🔍 Search Library")
-        st.caption("Type a game name (e.g., 'Terraria') to see details.")
+        st.caption("Type a game name (e.g., 'Pokemon') to see details.")
         selected_game = st_searchbox(
             search_game_logic,
             placeholder="Search game titles...",
@@ -279,18 +295,18 @@ with tab3:
                     display_game_link(g)
         with col_s2:
              with st.expander("🏭 Simulation & Management", expanded=True):
-                for g in ["Satisfactory", "House Flipper", "Burger Shop", "Dragon City"]:
+                for g in ["Satisfactory", "House Flipper", "Burger Shop", "Dragon City", "Bloons TD 6"]:
                     display_game_link(g)
     with g_tab2:
         st.caption("High-octane combat and deep storytelling.")
         col_a1, col_a2 = st.columns(2)
         with col_a1:
             with st.expander("⚔️ Action-Adventure", expanded=True):
-                for g in ["God of War", "Ninja Gaiden", "Prototype", "Grand Theft Auto V"]:
+                for g in ["God of War", "Ninja Gaiden", "Prototype", "Grand Theft Auto V", "Risk of Rain 2"]:
                     display_game_link(g)
         with col_a2:
              with st.expander("🚀 RPG & Shooters", expanded=True):
-                for g in ["Warframe", "Fallout 4", "Dislyte"]:
+                for g in ["Warframe", "Fallout 4", "Dislyte", "Mobile Legends: Bang Bang", "Guardian Tales", "King God Castle", "Pokemon"]:
                     display_game_link(g)
     with g_tab3:
         st.caption("Scary moments and nostalgic memories.")
@@ -301,7 +317,7 @@ with tab3:
                     display_game_link(g)
         with col_h2:
              with st.expander("💾 Classics & Nostalgia", expanded=True):
-                for g in ["Miscrits", "Blood Brothers"]:
+                for g in ["Miscrits", "Blood Brothers", "Adventure Quest Worlds"]:
                     display_game_link(g)
     with g_tab4:
         st.caption("Platforming, speed, and rhythm.")
@@ -312,7 +328,7 @@ with tab3:
                     display_game_link(g)
         with col_o2:
              with st.expander("🏎️ Racing & Rhythm", expanded=True):
-                for g in ["Need for Speed Heat", "Piano Tiles 2"]:
+                for g in ["Need for Speed Heat", "Piano Tiles 2", "Wordscapes"]:
                     display_game_link(g)
 
 st.divider()
