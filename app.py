@@ -1,84 +1,91 @@
 import streamlit as st
 
-# 1. Page Setup for Professionalism
+# 1. Professional Page Setup
 st.set_page_config(
     page_title="Jan Elseph Yu | Academic Portfolio",
     page_icon="🎓",
     layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# 2. Hero Section: Header & Branding
-# Using columns to create a clean, modern header
-col1, col2 = st.columns([3, 1])
+# 2. Sidebar Profile
+with st.sidebar:
+    # This assumes you have uploaded 'profile.jpg' to your GitHub repo
+    st.image("profile.jpg", caption="Jan Elseph Yu")
+    st.title("At a Glance")
+    st.write("📍 **Location:** Cebu City, PH")
+    st.write("🏫 **University:** CIT-University")
+    st.write("🎯 **Course:** BSIT-4")
+    st.divider()
+    st.write("**Direct Contact:**")
+    st.caption("janelsephyu@gmail.com")
 
-with col1:
-    st.title("Jan Elseph Yu")
-    st.subheader("Bachelor of Science in Information Technology")
-    st.write("📍 **Cebu Institute of Technology - University**")
-    st.write("Focus: Systems Administration & Blockchain Technology")
-
-with col2:
-    # A professional metric to show academic standing
-    st.metric(label="Current Status", value="4th Year Student")
-
+# 3. Main Header
+st.title("👨‍💻 The Digital Autobiography of Jan Elseph Yu")
+st.subheader("BSIT Senior Student | Aspiring IT Professional")
 st.divider()
 
-# 3. Main Navigation using Tabs (Aesthetic & Organized)
-tab1, tab2, tab3 = st.tabs(["📖 Autobiography", "🚀 Technical Projects", "🛠 Skills & Certifications"])
+# 4. Multi-Component Tabs (Full Utilization)
+tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Academic Projects", "🛠 Skills & Hobbies"])
 
 with tab1:
-    st.header("My Academic Journey")
-    # Using columns for a more visual layout than just text
-    left_co, right_co = st.columns(2)
+    col1, col2 = st.columns(2)
     
-    with left_co:
-        st.write("### Background")
-        # [Placeholder: Add your specific personal background story here]
-        st.write("""
-        I am currently a senior IT student in Cebu City, balancing rigorous academic 
-        coursework with hands-on technical training. My interest in technology 
-        stems from a lifelong passion for creating and building systems.
-        """)
+    with col1:
+        st.header("Basic Information")
+        st.write(f"**Full Name:** Jan Elseph Yu")
+        st.write(f"**Birthday:** January 11, 2001")
+        st.write(f"**Age:** 25 Years Old")
+        st.write(f"**Current Year:** 4th Year (Senior)")
         
-    with right_co:
-        st.write("### Current Focus")
-        st.info("Currently undergoing **On-the-Job Training (OJT)** to bridge the gap between classroom theory and industry practice.")
-        st.write("Projected Graduation: 2026")
+    with col2:
+        st.header("Brief Bio")
+        st.write("""
+        I am a dedicated Information Technology student at the Cebu Institute of Technology - University. 
+        As I near the completion of my BSIT degree, I am focused on bridging the gap between 
+        technical system administration and creative digital expression.
+        """)
+        st.info("Currently focused on completing OJT requirements for graduation.")
 
 with tab2:
-    st.header("Academic Portfolio")
-    # Using Expanders for "Full Utilization" of components
-    with st.expander("⭐ SyntaxType: Gamified E-Learning"):
-        st.write("A specialized platform developed for first-year BSIT students to improve typing proficiency within a technical context.")
-        st.write("**Tech Stack:** [Add specific technologies used]")
+    st.header("Academic Highlights")
+    # Using metrics for a dashboard aesthetic
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Degree", "BSIT")
+    m2.metric("Specialization", "SysAdmin")
+    m3.metric("University", "CIT-U")
+    
+    st.write("### Featured Projects")
+    with st.expander("⭐ SyntaxType: E-Learning Platform"):
+        st.write("A gamified typing platform designed for first-year BSIT students to master technical typing.")
         
-    with st.expander("🛡️ CloudFour: Systems Admin Project"):
-        st.write("A group project focused on managing storage solutions and RAID configurations for enterprise-level systems.")
-        
-    with st.expander("🔗 Blockchain Research & Development"):
-        st.write("Handwritten research and practical node setup involving the Linux environment and Cardano blockchain.")
+    with st.expander("🛡️ CloudFour: Systems Administration"):
+        st.write("A project focused on RAID configurations and storage management solutions.")
 
 with tab3:
-    st.header("Competencies")
+    st.header("Beyond the Classroom")
     
-    # Progress bars add a nice visual touch to represent skill levels
-    st.write("Programming Proficiency")
-    st.progress(85, text="Java & C++")
-    st.progress(70, text="React JS & Web Development")
-    st.progress(60, text="Cloud Architecting (AWS Academy)")
+    col_hobbies, col_skills = st.columns(2)
     
-    st.divider()
-    
-    # Using a professional-looking 'Success' box for certifications
-    st.subheader("Certifications & Courses")
-    st.success("✅ AWS Academy Cloud Architecting")
-    st.success("✅ Introduction to Blockchain (CSIT360)")
+    with col_hobbies:
+        st.subheader("My Hobbies")
+        # Displaying hobbies with different status boxes for variety
+        st.success("🎨 **Drawing:** Digital and traditional art.")
+        st.info("✍️ **Writing Stories:** A passion for world-building and narrative.")
+        st.warning("🎮 **Gaming:** Exploring mechanics and immersive worlds.")
+        
+    with col_skills:
+        st.subheader("Technical Proficiency")
+        st.progress(85, text="Java & C++")
+        st.progress(75, text="Web Development (React/MySQL)")
+        st.progress(65, text="Blockchain & Cloud Architecture")
 
-# 4. Footer Interactivity
+# 5. Interactive Grade Bonus Components
 st.divider()
-if st.button("Celebrate Completion!"):
+st.write("### Interaction Section")
+if st.button("Celebrate My Journey!"):
     st.balloons()
-    st.toast("Portfolio Successfully Loaded!", icon='🎉')
+    st.snow()
+    st.toast("Portfolio Successfully Displayed!", icon='🎉')
 
-# Footer text
-st.caption("Developed by Jan Elseph Yu | © 2026 Academic Portfolio Assignment")
+st.caption("© 2026 | Developed by Jan Elseph Yu for CIT-U IT Assignment")
