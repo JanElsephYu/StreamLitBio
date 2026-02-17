@@ -8,7 +8,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# 2. Advanced CSS for "Glassmorphism" Cards & Animations
+# 2. Advanced CSS for Aesthetics & Dark Mode Fix
 st.markdown("""
 <style>
     /* Global Styles */
@@ -16,36 +16,40 @@ st.markdown("""
         background-color: #f5f5f5;
     }
     
-    /* Custom Card Style */
-    .st-emotion-cache-1r6slb0, .css-1r6slb0 {
-        background-color: white;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
-    
-    /* Hover Effect for Cards (Metrics and Expanders) */
+    /* --- CARD STYLING & TEXT FIX --- */
+    /* Target Metrics and Expanders */
     div[data-testid="stMetric"], div[data-testid="stExpander"] {
-        background-color: #ffffff;
+        background-color: #ffffff !important; /* Force white background */
         border: 1px solid #e0e0e0;
         border-radius: 10px;
         padding: 15px;
-        transition: all 0.3s ease;
         box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        color: #333333 !important; /* FIXED: Force text to be DARK GREY */
     }
     
+    /* Force all text elements inside cards to be dark (overriding Dark Mode white text) */
+    div[data-testid="stMetric"] label, 
+    div[data-testid="stMetric"] div,
+    div[data-testid="stExpander"] p, 
+    div[data-testid="stExpander"] ul, 
+    div[data-testid="stExpander"] li,
+    div[data-testid="stExpander"] span {
+        color: #333333 !important;
+    }
+
+    /* Hover Effects */
     div[data-testid="stMetric"]:hover, div[data-testid="stExpander"]:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         border-color: #800000; /* CIT-U Maroon Accent */
     }
 
-    /* Button Styling */
+    /* --- BUTTON STYLING --- */
     .stButton>button {
         border-radius: 25px;
         background: linear-gradient(45deg, #800000, #ffcc00); /* Maroon & Gold */
-        color: white;
+        color: white !important;
         border: none;
         font-weight: bold;
         transition: all 0.3s;
@@ -54,18 +58,19 @@ st.markdown("""
     .stButton>button:hover {
         transform: scale(1.05);
         box-shadow: 0 5px 15px rgba(128, 0, 0, 0.4);
-        color: white;
+        color: white !important;
     }
     
+    /* --- LINK BUTTON (Wattpad) --- */
+    /* Styling the specific link button to look distinct */
+    a[href*="wattpad.com"] button {
+        background: #FF6122 !important; /* Wattpad Orange */
+        color: white !important;
+    }
+
     /* Header Typography */
     h1, h2, h3 {
         font-family: 'Helvetica Neue', sans-serif;
-        color: #333;
-    }
-    
-    /* Link Button Styling specifically for Wattpad */
-    a[href*="wattpad.com"] {
-        text-decoration: none;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -178,7 +183,7 @@ with tab3:
     with st.container(border=True):
         c_img, c_text = st.columns([1, 4])
         with c_img:
-            # Displaying a book icon or cover placeholder
+            # Displaying a book icon 
             st.markdown("# 📖")
         with c_text:
             st.write("### Mysterious Adventures Season 1: The New Beginning")
