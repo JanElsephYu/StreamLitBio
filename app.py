@@ -8,76 +8,44 @@ st.set_page_config(
     layout="wide",
 )
 
-# 2. Advanced CSS for Aesthetics & Dark Mode Fix
+# 2. Minimalist CSS (Enhancements only, no color forcing)
 st.markdown("""
 <style>
-    /* Global Styles */
-    .main {
-        background-color: #f5f5f5;
-    }
+    /* This CSS adds a nice gradient to your buttons but leaves the 
+       backgrounds alone so they adapt to Light/Dark mode automatically.
+    */
     
-    /* --- CARD STYLING & TEXT FIX --- */
-    /* Target Metrics and Expanders */
-    div[data-testid="stMetric"], div[data-testid="stExpander"] {
-        background-color: #ffffff !important; /* Force white background */
-        border: 1px solid #e0e0e0;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-        color: #333333 !important; /* FIXED: Force text to be DARK GREY */
-    }
-    
-    /* Force all text elements inside cards to be dark (overriding Dark Mode white text) */
-    div[data-testid="stMetric"] label, 
-    div[data-testid="stMetric"] div,
-    div[data-testid="stExpander"] p, 
-    div[data-testid="stExpander"] ul, 
-    div[data-testid="stExpander"] li,
-    div[data-testid="stExpander"] span {
-        color: #333333 !important;
+    /* Global Font Adjustment */
+    html, body, [class*="css"] {
+        font-family: 'Helvetica Neue', sans-serif;
     }
 
-    /* Hover Effects */
-    div[data-testid="stMetric"]:hover, div[data-testid="stExpander"]:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        border-color: #800000; /* CIT-U Maroon Accent */
-    }
-
-    /* --- BUTTON STYLING --- */
+    /* CIT-U Maroon & Gold Gradient Buttons */
     .stButton>button {
-        border-radius: 25px;
-        background: linear-gradient(45deg, #800000, #ffcc00); /* Maroon & Gold */
-        color: white !important;
+        background: linear-gradient(45deg, #800000, #ffcc00);
+        color: white !important; /* Force white text on the colored button */
         border: none;
+        border-radius: 20px;
         font-weight: bold;
-        transition: all 0.3s;
+        transition: transform 0.2s;
     }
     
+    /* Button Hover Effect */
     .stButton>button:hover {
         transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(128, 0, 0, 0.4);
-        color: white !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     
-    /* --- LINK BUTTON (Wattpad) --- */
-    /* Styling the specific link button to look distinct */
-    a[href*="wattpad.com"] button {
-        background: #FF6122 !important; /* Wattpad Orange */
-        color: white !important;
-    }
-
-    /* Header Typography */
-    h1, h2, h3 {
-        font-family: 'Helvetica Neue', sans-serif;
+    /* Wattpad Link specific styling */
+    a[href*="wattpad.com"] {
+        text-decoration: none;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # 3. Sidebar Profile
 with st.sidebar:
-    # Ensure profile.JPG is uploaded to GitHub with capital JPG
+    # Ensure profile.JPG is uploaded to GitHub
     st.image("profile.JPG", caption="Jan Elseph Yu | BSIT-4")
     st.title("Connect")
     st.write("📧 janelsephyu@gmail.com")
@@ -106,21 +74,23 @@ tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "
 with tab1:
     st.header("My Biography")
     
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.info("📌 **Personal Details**")
-        st.write(f"**Full Name:** Jan Elseph Yu")
-        st.write(f"**Birthday:** January 11, 2001") 
-        st.write(f"**Age:** 25 Years Old") 
-        st.write(f"**Address:** Cebu City, Philippines")
-    
-    with col2:
-        st.success("🎓 **Education**")
-        st.write("**Course:** Bachelor of Science in Information Technology")
-        st.write("**Year Level:** 4th Year (Senior)")
-        st.write("**University:** Cebu Institute of Technology - University")
-        st.write("**Status:** Regular Student / OJT Intern")
+    # Use st.container with border=True for the "Card" look that supports Dark Mode
+    with st.container(border=True):
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.info("📌 **Personal Details**")
+            st.write("**Full Name:** Jan Elseph Yu")
+            st.write("**Birthday:** January 11, 2001") 
+            st.write("**Age:** 25 Years Old") 
+            st.write("**Address:** Cebu City, Philippines")
+        
+        with col2:
+            st.success("🎓 **Education**")
+            st.write("**Course:** BS Information Technology")
+            st.write("**Year Level:** 4th Year (Senior)")
+            st.write("**University:** CIT-University")
+            st.write("**Status:** Regular Student / OJT Intern")
 
     st.write("### About Me")
     st.write("""
@@ -138,6 +108,7 @@ with tab2:
     col_proj1, col_proj2 = st.columns(2)
     
     with col_proj1:
+        # Using expanded=True makes them look like cards immediately
         with st.expander("⭐ GIPS (Grocery Indoor Positioning System)", expanded=True):
             st.write("**Platform:** Android Application")
             st.write("""
@@ -171,7 +142,7 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: SKILLS & HOBBIES (Detailed Version) ---
+# --- TAB 3: SKILLS & HOBBIES (Updated) ---
 with tab3:
     st.header("Beyond the Code")
     
@@ -179,16 +150,14 @@ with tab3:
     st.subheader("✍️ Creative Writing")
     st.write("I have been writing stories since the 3rd grade. My latest featured work:")
     
-    # Styled container for Wattpad link
+    # Using container(border=True) creates a nice visible box in any theme
     with st.container(border=True):
         c_img, c_text = st.columns([1, 4])
         with c_img:
-            # Displaying a book icon 
             st.markdown("# 📖")
         with c_text:
             st.write("### Mysterious Adventures Season 1: The New Beginning")
             st.write("_A story about new beginnings, unfolding mysteries, and the adventures that await._")
-            # Clickable Button
             st.link_button("Read on Wattpad", "https://www.wattpad.com/story/44610822-mysterious-adventures-season-1-the-new-beginning")
 
     st.divider()
@@ -200,32 +169,29 @@ with tab3:
     col_games_1, col_games_2 = st.columns(2)
 
     with col_games_1:
-        with st.expander("🏰 Metroidvania & Platformers"):
-            st.write("Games that challenge reflexes and exploration:")
+        with st.expander("🏰 Metroidvania & Platformers", expanded=True):
             st.markdown("""
             * **Hollow Knight:** Deep lore exploration and challenging combat.
             * **Hollow Knight: Silksong:** (Anticipated)
             * **Geometry Dash:** Focused on completing the Top 5 most difficult levels.
             """)
             
-        with st.expander("⚔️ Action & Tactical RPG"):
+        with st.expander("⚔️ Action & Tactical RPG", expanded=True):
             st.markdown("""
             * **Warhammer: Vermintide 2:** Co-op survival and combat mechanics.
             * **Dislyte:** Mobile turn-based RPG strategy and team building.
             """)
 
     with col_games_2:
-        with st.expander("🏗️ Simulation & Sandbox"):
-            st.write("Systems management and resource optimization:")
+        with st.expander("🏗️ Simulation & Sandbox", expanded=True):
             st.markdown("""
             * **Satisfactory:** Factory building and efficiency calculation.
             * **Core Keeper:** Mining sandbox, boss battles, and item collection.
             """)
             
-        with st.expander("📺 Media Interests"):
-            st.markdown("""
-            * **Scorpion (TV Series):** A major inspiration for my interest in solving complex problems using technology.
-            """)
+        # Placeholder for future games
+        with st.expander("🕹️ More Games Coming Soon...", expanded=True):
+             st.write("Currently exploring new titles to add to this list!")
 
     st.divider()
     
@@ -247,7 +213,6 @@ with tab3:
 st.divider()
 st.write("### Interactive Feedback")
 
-# Using columns to center the button
 b1, b2, b3 = st.columns([1, 2, 1])
 with b2:
     if st.button("Click to Celebrate My Work! 🚀", use_container_width=True):
