@@ -25,7 +25,7 @@ st.markdown("""
         transition: transform 0.3s ease;
     }
     
-    /* Hover Effect for Cards */
+    /* Hover Effect for Cards (Metrics and Expanders) */
     div[data-testid="stMetric"], div[data-testid="stExpander"] {
         background-color: #ffffff;
         border: 1px solid #e0e0e0;
@@ -62,6 +62,11 @@ st.markdown("""
         font-family: 'Helvetica Neue', sans-serif;
         color: #333;
     }
+    
+    /* Link Button Styling specifically for Wattpad */
+    a[href*="wattpad.com"] {
+        text-decoration: none;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -96,14 +101,13 @@ tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "
 with tab1:
     st.header("My Biography")
     
-    # Using columns to organize data neatly
     col1, col2 = st.columns(2)
     
     with col1:
         st.info("📌 **Personal Details**")
         st.write(f"**Full Name:** Jan Elseph Yu")
-        st.write(f"**Birthday:** January 11, 2001") # Restored
-        st.write(f"**Age:** 25 Years Old") # Restored
+        st.write(f"**Birthday:** January 11, 2001") 
+        st.write(f"**Age:** 25 Years Old") 
         st.write(f"**Address:** Cebu City, Philippines")
     
     with col2:
@@ -121,7 +125,7 @@ with tab1:
     managing scholarship applications.
     """)
 
-# --- TAB 2: FEATURED PROJECTS (Restored GIPS, SEMS, NASMS) ---
+# --- TAB 2: FEATURED PROJECTS ---
 with tab2:
     st.header("Project Portfolio")
     st.caption("Hover over the cards below to see details.")
@@ -162,26 +166,77 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: SKILLS & HOBBIES ---
+# --- TAB 3: SKILLS & HOBBIES (Detailed Version) ---
 with tab3:
+    st.header("Beyond the Code")
+    
+    # 1. CREATIVE WRITING SECTION
+    st.subheader("✍️ Creative Writing")
+    st.write("I have been writing stories since the 3rd grade. My latest featured work:")
+    
+    # Styled container for Wattpad link
+    with st.container(border=True):
+        c_img, c_text = st.columns([1, 4])
+        with c_img:
+            # Displaying a book icon or cover placeholder
+            st.markdown("# 📖")
+        with c_text:
+            st.write("### Mysterious Adventures Season 1: The New Beginning")
+            st.write("_A story about new beginnings, unfolding mysteries, and the adventures that await._")
+            # Clickable Button
+            st.link_button("Read on Wattpad", "https://www.wattpad.com/story/44610822-mysterious-adventures-season-1-the-new-beginning")
+
+    st.divider()
+
+    # 2. GAMING PORTFOLIO SECTION
+    st.subheader("🎮 Gaming Portfolio")
+    st.write("I enjoy exploring complex mechanics and lore in various genres.")
+
+    col_games_1, col_games_2 = st.columns(2)
+
+    with col_games_1:
+        with st.expander("🏰 Metroidvania & Platformers"):
+            st.write("Games that challenge reflexes and exploration:")
+            st.markdown("""
+            * **Hollow Knight:** Deep lore exploration and challenging combat.
+            * **Hollow Knight: Silksong:** (Anticipated)
+            * **Geometry Dash:** Focused on completing the Top 5 most difficult levels.
+            """)
+            
+        with st.expander("⚔️ Action & Tactical RPG"):
+            st.markdown("""
+            * **Warhammer: Vermintide 2:** Co-op survival and combat mechanics.
+            * **Dislyte:** Mobile turn-based RPG strategy and team building.
+            """)
+
+    with col_games_2:
+        with st.expander("🏗️ Simulation & Sandbox"):
+            st.write("Systems management and resource optimization:")
+            st.markdown("""
+            * **Satisfactory:** Factory building and efficiency calculation.
+            * **Core Keeper:** Mining sandbox, boss battles, and item collection.
+            """)
+            
+        with st.expander("📺 Media Interests"):
+            st.markdown("""
+            * **Scorpion (TV Series):** A major inspiration for my interest in solving complex problems using technology.
+            """)
+
+    st.divider()
+    
+    # 3. TECHNICAL SKILLS PROGRESS
+    st.subheader("Technical Proficiency")
     c1, c2 = st.columns(2)
-    
     with c1:
-        st.subheader("My Hobbies")
-        st.markdown("""
-        * 🎨 **Drawing:** Digital art and sketching.
-        * ✍️ **Writing Stories:** Creative writing and lore building.
-        * 🎮 **Gaming:** Strategy and RPGs.
-        """)
-    
-    with c2:
-        st.subheader("Technical Skills")
         st.write("Android Development (Java/Kotlin)")
         st.progress(85)
         st.write("Web Development (React/Python)")
         st.progress(75)
+    with c2:
         st.write("Systems Administration")
         st.progress(70)
+        st.write("Creative Arts (Drawing/Writing)")
+        st.progress(90)
 
 # 6. Interactive Footer
 st.divider()
