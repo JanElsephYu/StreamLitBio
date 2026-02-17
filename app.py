@@ -11,7 +11,7 @@ st.set_page_config(
 # 2. Sidebar Profile
 with st.sidebar:
     # This assumes you have uploaded 'profile.jpg' to your GitHub repo
-    st.image("profile.jpg", caption="Jan Elseph Yu")
+    st.image("profile.JPG", caption="Jan Elseph Yu")
     st.title("At a Glance")
     st.write("📍 **Location:** Cebu City, PH")
     st.write("🏫 **University:** CIT-University")
