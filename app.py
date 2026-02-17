@@ -8,14 +8,10 @@ st.set_page_config(
     layout="wide",
 )
 
-# 2. Minimalist CSS (Enhancements only, no color forcing)
+# 2. Universal CSS (Theme-Adaptive & Clean)
 st.markdown("""
 <style>
-    /* This CSS adds a nice gradient to your buttons but leaves the 
-       backgrounds alone so they adapt to Light/Dark mode automatically.
-    */
-    
-    /* Global Font Adjustment */
+    /* Global Font */
     html, body, [class*="css"] {
         font-family: 'Helvetica Neue', sans-serif;
     }
@@ -23,14 +19,13 @@ st.markdown("""
     /* CIT-U Maroon & Gold Gradient Buttons */
     .stButton>button {
         background: linear-gradient(45deg, #800000, #ffcc00);
-        color: white !important; /* Force white text on the colored button */
+        color: white !important;
         border: none;
         border-radius: 20px;
         font-weight: bold;
         transition: transform 0.2s;
     }
     
-    /* Button Hover Effect */
     .stButton>button:hover {
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -68,13 +63,12 @@ with col_hero_text:
     st.write("---")
 
 # 5. Main Navigation Tabs
-tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "🎨 Skills & Hobbies"])
+tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "🎮 Hobbyist Zone"])
 
 # --- TAB 1: PERSONAL PROFILE ---
 with tab1:
     st.header("My Biography")
     
-    # Use st.container with border=True for the "Card" look that supports Dark Mode
     with st.container(border=True):
         col1, col2 = st.columns(2)
         
@@ -108,7 +102,6 @@ with tab2:
     col_proj1, col_proj2 = st.columns(2)
     
     with col_proj1:
-        # Using expanded=True makes them look like cards immediately
         with st.expander("⭐ GIPS (Grocery Indoor Positioning System)", expanded=True):
             st.write("**Platform:** Android Application")
             st.write("""
@@ -142,15 +135,12 @@ with tab2:
             - 📈 **Analytics:** Tracks typing speed and accuracy improvements.
             """)
 
-# --- TAB 3: SKILLS & HOBBIES (Updated) ---
+# --- TAB 3: HOBBIES & GAMES (Updated List) ---
 with tab3:
     st.header("Beyond the Code")
     
-    # 1. CREATIVE WRITING SECTION
+    # 1. CREATIVE WRITING
     st.subheader("✍️ Creative Writing")
-    st.write("I have been writing stories since the 3rd grade. My latest featured work:")
-    
-    # Using container(border=True) creates a nice visible box in any theme
     with st.container(border=True):
         c_img, c_text = st.columns([1, 4])
         with c_img:
@@ -162,52 +152,87 @@ with tab3:
 
     st.divider()
 
-    # 2. GAMING PORTFOLIO SECTION
-    st.subheader("🎮 Gaming Portfolio")
-    st.write("I enjoy exploring complex mechanics and lore in various genres.")
+    # 2. GAMING PORTFOLIO
+    st.subheader("🎮 Gaming Collection")
+    st.write("A curated list of games I have enjoyed over the years, organized by genre.")
 
-    col_games_1, col_games_2 = st.columns(2)
+    # Using Tabs inside the Hobby section for cleaner organization of the long list
+    g_tab1, g_tab2, g_tab3, g_tab4 = st.tabs(["🏗️ Sandbox & Sim", "⚔️ Action & RPG", "👻 Horror & Classics", "🎵 Rhythm & Others"])
 
-    with col_games_1:
-        with st.expander("🏰 Metroidvania & Platformers", expanded=True):
-            st.markdown("""
-            * **Hollow Knight:** Deep lore exploration and challenging combat.
-            * **Hollow Knight: Silksong:** (Anticipated)
-            * **Geometry Dash:** Focused on completing the Top 5 most difficult levels.
-            """)
-            
-        with st.expander("⚔️ Action & Tactical RPG", expanded=True):
-            st.markdown("""
-            * **Warhammer: Vermintide 2:** Co-op survival and combat mechanics.
-            * **Dislyte:** Mobile turn-based RPG strategy and team building.
-            """)
+    with g_tab1:
+        st.caption("Building, surviving, and managing worlds.")
+        col_s1, col_s2 = st.columns(2)
+        with col_s1:
+            with st.expander("🌲 Survival Sandbox", expanded=True):
+                st.markdown("""
+                * **Minecraft:** The ultimate voxel sandbox for creativity and survival.
+                * **Terraria:** 2D action-adventure sandbox with deep progression.
+                * **Core Keeper:** Mining sandbox adventure with bosses and relics.
+                * **Grounded:** Survival adventure shrunk down in a backyard environment.
+                * **The Forest / Sons of The Forest:** Intense survival horror against cannibals.
+                * **Necesse:** Top-down procedural sandbox action-adventure.
+                * **Palworld:** Monster-collecting survival game with automation elements.
+                """)
+        with col_s2:
+             with st.expander("🏭 Simulation & Management", expanded=True):
+                st.markdown("""
+                * **Satisfactory:** First-person open-world factory building.
+                * **House Flipper:** Renovation simulation (flipping houses for profit).
+                * **Burger Shop:** Fast-paced food making time-management sim.
+                * **Dragon City:** Breeding and battling strategy game with dragons.
+                """)
 
-    with col_games_2:
-        with st.expander("🏗️ Simulation & Sandbox", expanded=True):
-            st.markdown("""
-            * **Satisfactory:** Factory building and efficiency calculation.
-            * **Core Keeper:** Mining sandbox, boss battles, and item collection.
-            """)
-            
-        # Placeholder for future games
-        with st.expander("🕹️ More Games Coming Soon...", expanded=True):
-             st.write("Currently exploring new titles to add to this list!")
+    with g_tab2:
+        st.caption("High-octane combat and deep storytelling.")
+        col_a1, col_a2 = st.columns(2)
+        with col_a1:
+            with st.expander("⚔️ Action-Adventure", expanded=True):
+                st.markdown("""
+                * **God of War:** Mythological action-adventure focused on combat and fatherhood.
+                * **Ninja Gaiden:** High-difficulty hack-and-slash action.
+                * **Prototype:** Open-world action featuring a shapeshifting anti-hero.
+                * **Grand Theft Auto (Series):** Open-world crime and action-adventure.
+                """)
+        with col_a2:
+             with st.expander("🚀 RPG & Shooters", expanded=True):
+                st.markdown("""
+                * **Warframe:** High-speed space ninja looter shooter.
+                * **Fallout (Series):** Post-apocalyptic RPG exploring the wasteland.
+                * **Dislyte:** Urban mythological turn-based RPG.
+                """)
 
-    st.divider()
-    
-    # 3. TECHNICAL SKILLS PROGRESS
-    st.subheader("Technical Proficiency")
-    c1, c2 = st.columns(2)
-    with c1:
-        st.write("Android Development (Java/Kotlin)")
-        st.progress(85)
-        st.write("Web Development (React/Python)")
-        st.progress(75)
-    with c2:
-        st.write("Systems Administration")
-        st.progress(70)
-        st.write("Creative Arts (Drawing/Writing)")
-        st.progress(90)
+    with g_tab3:
+        st.caption("Scary moments and nostalgic memories.")
+        col_h1, col_h2 = st.columns(2)
+        with col_h1:
+            with st.expander("🧟 Horror & Zombies", expanded=True):
+                st.markdown("""
+                * **Resident Evil (Series):** The premier survival horror franchise.
+                * **Left 4 Dead 2:** Classic co-op zombie apocalypse shooter.
+                """)
+        with col_h2:
+             with st.expander("💾 Classics & Nostalgia", expanded=True):
+                st.markdown("""
+                * **Miscrits:** Open-world monster battling RPG (Facebook Classic).
+                * **Blood Brothers:** Dark fantasy vampire RPG by DeNA (Classic).
+                """)
+
+    with g_tab4:
+        st.caption("Platforming, speed, and rhythm.")
+        col_o1, col_o2 = st.columns(2)
+        with col_o1:
+            with st.expander("🏰 Metroidvania & Platformers", expanded=True):
+                st.markdown("""
+                * **Hollow Knight:** Deep lore exploration and challenging combat.
+                * **Hollow Knight: Silksong:** (Anticipated sequel).
+                * **Geometry Dash:** Rhythm-based platformer focused on difficulty.
+                """)
+        with col_o2:
+             with st.expander("🏎️ Racing & Rhythm", expanded=True):
+                st.markdown("""
+                * **Need for Speed (Series):** Street racing and police chases.
+                * **Piano Tiles 2:** Reflex-based music rhythm game.
+                """)
 
 # 6. Interactive Footer
 st.divider()
