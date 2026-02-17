@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import time
+import base64
 from streamlit_searchbox import st_searchbox
 
 # 1. Page Configuration
@@ -10,6 +11,63 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="auto"
 )
+
+# --- NEW: BACKGROUND VIDEO LOGIC ---
+def add_bg_from_local(image_file):
+    try:
+        with open(image_file, "rb") as file:
+            encoded_string = base64.b64encode(file.read())
+        
+        st.markdown(
+            f"""
+            <style>
+            /* 1. The Video Background */
+            #myVideo {{
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                min-width: 100%; 
+                min-height: 100%;
+                z-index: -1;
+                /* Blur and 50% Brightness as requested */
+                filter: blur(8px) brightness(0.5); 
+                object-fit: cover;
+            }}
+            
+            /* 2. Make the main app background transparent so we can see the video */
+            .stApp {{
+                background: transparent;
+            }}
+
+            /* 3. Drop Shadow & Readability for Front Layers */
+            /* This targets your "Cards" (containers with borders) and Expanders */
+            div[data-testid="stExpander"], div[data-testid="stContainer"] {{
+                background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Strong Drop Shadow */
+                border-radius: 10px;
+                border: 1px solid rgba(255,255,255,0.2);
+            }}
+            
+            /* Dark Mode Adjustment for the Cards */
+            @media (prefers-color-scheme: dark) {{
+                div[data-testid="stExpander"], div[data-testid="stContainer"] {{
+                    background-color: rgba(30, 30, 30, 0.9);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+                }}
+            }}
+            </style>
+            
+            <video autoplay muted loop id="myVideo" playsinline>
+                <source src="data:video/mp4;base64,{encoded_string.decode()}" type="video/mp4">
+            </video>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.warning("⚠️ 'background.mp4' was not found. Please add it to your folder to see the video effect.")
+
+# Call the function to load the video
+add_bg_from_local('background.mp4')
 
 # 2. Universal CSS (Mobile-Responsive & Adaptive)
 st.markdown("""
