@@ -1,91 +1,115 @@
 import streamlit as st
 
-# 1. Professional Page Setup
+# 1. Page Configuration
 st.set_page_config(
-    page_title="Jan Elseph Yu | Academic Portfolio",
+    page_title="Jan Elseph Yu | Professional Portfolio",
     page_icon="🎓",
     layout="wide",
-    initial_sidebar_state="expanded"
 )
 
-# 2. Sidebar Profile
-with st.sidebar:
-    # This assumes you have uploaded 'profile.jpg' to your GitHub repo
-    st.image("profile.JPG", caption="Jan Elseph Yu")
-    st.title("At a Glance")
-    st.write("📍 **Location:** Cebu City, PH")
-    st.write("🏫 **University:** CIT-University")
-    st.write("🎯 **Course:** BSIT-4")
-    st.divider()
-    st.write("**Direct Contact:**")
-    st.caption("janelsephyu@gmail.com")
+# 2. Custom CSS for Animations (The "Aesthetic" Secret Sauce)
+st.markdown("""
+<style>
+    /* Targeting all Streamlit buttons */
+    .stButton>button {
+        transition: all 0.3s ease; /* Smooth transition */
+        border-radius: 10px;
+        border: 2px solid #800000; /* CIT-U Maroon */
+        background-color: white;
+        color: #800000;
+        font-weight: bold;
+    }
 
-# 3. Main Header
-st.title("👨‍💻 The Digital Autobiography of Jan Elseph Yu")
-st.subheader("BSIT Senior Student | Aspiring IT Professional")
+    /* Hover Animation: Button grows and changes color */
+    .stButton>button:hover {
+        transform: scale(1.1); /* Grow 10% */
+        background-color: #800000; /* Fill with Maroon */
+        color: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Click Animation: Button shrinks slightly */
+    .stButton>button:active {
+        transform: scale(0.95);
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# 3. Sidebar for Quick Facts
+with st.sidebar:
+    # Use your profile image from GitHub
+    st.image("profile.JPG", caption="Jan Elseph Yu")
+    st.title("Contact Details")
+    st.write("📧 janelsephyu@gmail.com")
+    st.write("📍 Cebu City, Philippines")
+    st.divider()
+    st.write("**Course:** BSIT-4 @ CIT-U")
+
+# 4. Hero Section
+st.title("👨‍💻 Jan Elseph Yu")
+st.subheader("BSIT Senior Student | Mobile Developer")
 st.divider()
 
-# 4. Multi-Component Tabs (Full Utilization)
-tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Academic Projects", "🛠 Skills & Hobbies"])
+# 5. Navigation Tabs
+tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "🎨 Skills & Hobbies"])
 
 with tab1:
-    col1, col2 = st.columns(2)
+    col_text, col_metrics = st.columns([2, 1])
     
-    with col1:
-        st.header("Basic Information")
+    with col_text:
+        st.header("Autobiography")
         st.write(f"**Full Name:** Jan Elseph Yu")
         st.write(f"**Birthday:** January 11, 2001")
-        st.write(f"**Age:** 25 Years Old")
-        st.write(f"**Current Year:** 4th Year (Senior)")
-        
-    with col2:
-        st.header("Brief Bio")
+        st.write(f"**Age:** 25")
         st.write("""
-        I am a dedicated Information Technology student at the Cebu Institute of Technology - University. 
-        As I near the completion of my BSIT degree, I am focused on bridging the gap between 
-        technical system administration and creative digital expression.
+        I am a 4th-year IT student at the Cebu Institute of Technology - University. 
+        My academic focus is on developing mobile and web systems that solve real-world 
+        problems, ranging from indoor positioning to scholarship management.
         """)
-        st.info("Currently focused on completing OJT requirements for graduation.")
+        
+    with col_metrics:
+        st.metric(label="Graduation Year", value="2026")
+        st.metric(label="OJT Status", value="In Progress")
 
 with tab2:
-    st.header("Academic Highlights")
-    # Using metrics for a dashboard aesthetic
-    m1, m2, m3 = st.columns(3)
-    m1.metric("Degree", "BSIT")
-    m2.metric("Specialization", "SysAdmin")
-    m3.metric("University", "CIT-U")
+    st.header("Technical Projects")
     
-    st.write("### Featured Projects")
-    with st.expander("⭐ SyntaxType: E-Learning Platform"):
-        st.write("A gamified typing platform designed for first-year BSIT students to master technical typing.")
-        
-    with st.expander("🛡️ CloudFour: Systems Administration"):
-        st.write("A project focused on RAID configurations and storage management solutions.")
+    # GIPS Project
+    with st.expander("⭐ GIPS (Grocery Indoor Positioning System)"):
+        st.write("""
+        An Android application designed to streamline the grocery shopping experience. 
+        - **Indoor Positioning:** Locate items specifically within a store.
+        - **Shopping Management:** Manage a digital cart and check item availability.
+        """)
+    
+    # NASMS/SEMS Project
+    with st.expander("🎓 NASMS (Non-Academic Scholar Management System)"):
+        st.write("""
+        A mobile solution for Cebu Institute of Technology - University scholarship applicants.
+        - **Documentation:** In-app PDF conversion and document uploading for Grades and School IDs.
+        - **User Portal:** Features landing pages, account creation, and profile displays.
+        """)
 
 with tab3:
-    st.header("Beyond the Classroom")
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("Hobbies")
+        st.info("🎨 Drawing")
+        st.success("✍️ Writing Stories")
     
-    col_hobbies, col_skills = st.columns(2)
-    
-    with col_hobbies:
-        st.subheader("My Hobbies")
-        # Displaying hobbies with different status boxes for variety
-        st.success("🎨 **Drawing:** Digital and traditional art.")
-        st.info("✍️ **Writing Stories:** A passion for world-building and narrative.")
-        st.warning("🎮 **Gaming:** Exploring mechanics and immersive worlds.")
-        
-    with col_skills:
-        st.subheader("Technical Proficiency")
-        st.progress(85, text="Java & C++")
-        st.progress(75, text="Web Development (React/MySQL)")
-        st.progress(65, text="Blockchain & Cloud Architecture")
+    with c2:
+        st.subheader("Proficiency")
+        st.progress(85, text="Android Development (Java)")
+        st.progress(70, text="System Admin (Linux)")
 
-# 5. Interactive Grade Bonus Components
+# 6. Interactive Button with Animation
 st.divider()
-st.write("### Interaction Section")
+st.write("### Interactive Experience")
+st.write("Try hovering over the button below to see the animation!")
+
 if st.button("Celebrate My Journey!"):
     st.balloons()
     st.snow()
-    st.toast("Portfolio Successfully Displayed!", icon='🎉')
+    st.toast("Submission Ready!", icon='🎉')
 
-st.caption("© 2026 | Developed by Jan Elseph Yu for CIT-U IT Assignment")
+st.caption("© 2026 | Built for CIT-U IT Portfolio Assignment")
