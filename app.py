@@ -69,16 +69,59 @@ st.markdown("""
     }
     .stButton>button:hover { transform: scale(1.02); }
     a { text-decoration: none; }
+    
+    /* Skill Badge Styling */
+    .skill-badge {
+        background-color: #800000;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.85em;
+        margin: 2px;
+        display: inline-block;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# 3. Sidebar
+# 3. Sidebar (UPDATED WITH RESUME DETAILS)
 with st.sidebar:
     st.image("profile.JPG", caption="Jan Elseph Yu | BSIT-4", use_container_width=True)
-    st.title("Connect")
-    st.write("📧 janelsephyu@gmail.com")
-    st.write("📍 Cebu City, Philippines")
-    st.write("🏫 CIT-University")
+    
+    st.title("Contact Info")
+    st.markdown("📧 **Email:**")
+    st.caption("janelsephyu@gmail.com")
+    st.markdown("📍 **Location:**")
+    st.caption("Cebu City, Philippines")
+    st.markdown("🔗 **Socials:**")
+    st.caption("[LinkedIn Profile](https://linkedin.com) | [GitHub Profile](https://github.com)")
+    
+    st.divider()
+    
+    st.subheader("🛠️ Tech Stack")
+    st.markdown("""
+    <div style="line-height: 2;">
+        <span class="skill-badge">Python</span>
+        <span class="skill-badge">Java</span>
+        <span class="skill-badge">C++</span>
+        <span class="skill-badge">React JS</span>
+        <span class="skill-badge">Springboot</span>
+        <span class="skill-badge">MySQL</span>
+        <span class="skill-badge">AWS</span>
+        <span class="skill-badge">Linux</span>
+        <span class="skill-badge">Android Studio</span>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.divider()
+    
+    st.subheader("🧩 Soft Skills")
+    st.markdown("""
+    - Leadership & Team Management
+    - System Administration
+    - Creative Problem Solving
+    - Technical Documentation
+    """)
+    
     st.divider()
     st.caption("© 2026 Academic Portfolio")
 
@@ -90,8 +133,7 @@ with col_hero:
     st.write("**\"Innovating one line of code at a time.\"**")
     st.write("---")
 
-# 5. DATA LOGIC: THE MASTER LIST
-# All games with updated Details, Tags, Devs, and Dates
+# 5. DATA LOGIC: THE MASTER LIST (UNCHANGED)
 ALL_GAMES = [
     # --- TOP 5 FAVORITES (Data for Logic) ---
     {"title": "Satisfactory", "genre": "Simulation", "tags": "Automation, Base Building, Co-op", "dev": "Coffee Stain", "date": "2020", "desc": "An open-world factory building game played from a first-person perspective. Construct multi-story factories, enter conveyor belt heaven, automate vehicles, and research new technologies.", "link": "https://store.steampowered.com/app/526870/Satisfactory/"},
@@ -157,20 +199,64 @@ def search_game_logic(searchterm: str):
 # --- TAB LOGIC ---
 tab1, tab2, tab3 = st.tabs(["👤 Personal Profile", "🚀 Featured Projects", "🎮 Hobbyist Zone"])
 
+# --- TAB 1: UPDATED WITH RESUME CONTENT ---
 with tab1:
     st.header("My Biography")
+    
+    # Professional Summary
     with st.container(border=True):
-        c1, c2 = st.columns(2)
-        with c1:
-            st.info("📌 **Personal Details**")
-            st.write("**Full Name:** Jan Elseph Yu")
+        st.subheader("🎯 Professional Summary")
+        st.write("""
+        A dedicated 4th-year **Bachelor of Science in Information Technology** student at **Cebu Institute of Technology - University**. 
+        
+        Passionate about bridging the gap between technical systems and creative expression. Specialized in **Systems Administration** and **Android Development**, with hands-on experience in building gamified e-learning platforms (SyntaxType), scholar management systems (SEMS/NASMS), and indoor positioning solutions (GIPS).
+        
+        Currently seeking OJT opportunities to leverage skills in **Java, Python, and Cloud Architecture** to solve real-world problems.
+        """)
+
+    # Personal Details & Education
+    col1, col2 = st.columns(2)
+    with col1:
+        with st.container(border=True):
+            st.subheader("📌 Personal Information")
+            st.write("**Name:** Jan Elseph Yu")
             st.write("**Age:** 25 Years Old")
-        with c2:
-            st.success("🎓 **Education**")
-            st.write("**Course:** BS Information Technology")
-            st.write("**University:** CIT-University")
-    st.write("### About Me")
-    st.write("My journey in technology started with a love for storytelling in the 3rd grade...")
+            st.write("**Birthdate:** January 11, 2001")
+            st.write("**Nationality:** Filipino")
+            st.write("**Address:** Cebu City, Philippines")
+    
+    with col2:
+        with st.container(border=True):
+            st.subheader("🎓 Education")
+            st.write("**Bachelor of Science in Information Technology**")
+            st.write("*Cebu Institute of Technology - University*")
+            st.caption("📅 2022 - Present (Expected Graduation: 2026)")
+            st.write("---")
+            st.write("**Certifications:**")
+            st.markdown("- ✅ **AWS Academy Cloud Architecting**")
+            st.markdown("- ✅ **Introduction to Blockchain (CSIT360)**")
+
+    # Key Competencies
+    st.subheader("💡 Key Competencies")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        with st.container(border=True):
+            st.write("**💻 Development**")
+            st.markdown("- Android Dev (Java/Kotlin)")
+            st.markdown("- Web Dev (React JS)")
+            st.markdown("- Python Scripting")
+    with c2:
+        with st.container(border=True):
+            st.write("**⚙️ Systems**")
+            st.markdown("- Linux Administration")
+            st.markdown("- RAID Configuration")
+            st.markdown("- Cloud Architecture (AWS)")
+    with c3:
+        with st.container(border=True):
+            st.write("**🛠️ Tools**")
+            st.markdown("- Git & GitHub")
+            st.markdown("- MySQL Database")
+            st.markdown("- Visual Studio Code")
 
 with tab2:
     st.header("Project Portfolio")
