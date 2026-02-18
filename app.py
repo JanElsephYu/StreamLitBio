@@ -91,7 +91,7 @@ with st.sidebar:
     st.markdown("📧 **Email:**")
     st.caption("janelsephyu@gmail.com")
     st.markdown("📍 **Location:**")
-    st.caption("Cebu City, Philippines")
+    st.caption("427-D R.Padilla 2nd St. Cebu City")
     st.markdown("🔗 **Socials:**")
     st.caption("[LinkedIn Profile](https://linkedin.com) | [GitHub Profile](https://github.com)")
     
@@ -106,9 +106,8 @@ with st.sidebar:
         <span class="skill-badge">React JS</span>
         <span class="skill-badge">Springboot</span>
         <span class="skill-badge">MySQL</span>
-        <span class="skill-badge">AWS</span>
-        <span class="skill-badge">Linux</span>
         <span class="skill-badge">Android Studio</span>
+        <span class="skill-badge">OAuth</span>
     </div>
     """, unsafe_allow_html=True)
     
@@ -129,8 +128,10 @@ with st.sidebar:
 col_hero, _ = st.columns([2, 1])
 with col_hero:
     st.title("Jan Elseph Yu")
-    st.subheader("Aspiring IT Professional & Systems Developer")
-    st.write("**\"Innovating one line of code at a time.\"**")
+    st.subheader("IT Student & Software Developer")
+    st.write("""
+    **Motivated 4th-year IT student at CIT-U with a solid foundation in software development and system administration. Passionate about technology education, demonstrated through community volunteering.**
+    """)
     st.write("---")
 
 # 5. DATA LOGIC: THE MASTER LIST (UNCHANGED)
@@ -207,11 +208,7 @@ with tab1:
     with st.container(border=True):
         st.subheader("🎯 Professional Summary")
         st.write("""
-        A dedicated 4th-year **Bachelor of Science in Information Technology** student at **Cebu Institute of Technology - University**. 
-        
-        Passionate about bridging the gap between technical systems and creative expression. Specialized in **Systems Administration** and **Android Development**, with hands-on experience in building gamified e-learning platforms (SyntaxType), scholar management systems (SEMS/NASMS), and indoor positioning solutions (GIPS).
-        
-        Currently seeking OJT opportunities to leverage skills in **Java, Python, and Cloud Architecture** to solve real-world problems.
+        Motivated 4th-year IT student at CIT-U with a solid foundation in software development and system administration. Passionate about technology education, demonstrated through community volunteering.
         """)
 
     # Personal Details & Education
@@ -223,7 +220,7 @@ with tab1:
             st.write("**Age:** 25 Years Old")
             st.write("**Birthdate:** January 11, 2001")
             st.write("**Nationality:** Filipino")
-            st.write("**Address:** Cebu City, Philippines")
+            st.write("**Address:** 427-D R.Padilla 2nd St. Cebu City")
     
     with col2:
         with st.container(border=True):
@@ -232,31 +229,40 @@ with tab1:
             st.write("*Cebu Institute of Technology - University*")
             st.caption("📅 2022 - Present (Expected Graduation: 2026)")
             st.write("---")
-            st.write("**Certifications:**")
-            st.markdown("- ✅ **AWS Academy Cloud Architecting**")
-            st.markdown("- ✅ **Introduction to Blockchain (CSIT360)**")
+            st.write("**Monterey School Inc.**")
+            st.caption("Nursery to Junior High School")
+
+    # Experience Section
+    st.subheader("💼 Experience")
+    with st.expander("View Experience Details", expanded=True):
+        st.markdown("### 2024 - Present | Freelance Web Developer")
+        st.write("""
+        * Developed a custom e-commerce landing page using React JS to showcase the client's local products.
+        * Built a secure RESTful API with Java Springboot to manage customer orders and product inventory.
+        * Designed and normalized the MySQL database schema to ensure data integrity and fast query performance.
+        """)
+        st.divider()
+        st.markdown("### 2017 | Community Coding Instructor (Volunteer)")
+        st.write("""
+        * Taught basic programming logic to children using the MIT Scratch application.
+        * Translated complex coding concepts into simple, easy-to-understand lessons for beginners.
+        * Mentored students in creating their own interactive stories and games.
+        """)
 
     # Key Competencies
     st.subheader("💡 Key Competencies")
-    c1, c2, c3 = st.columns(3)
+    c1, c2 = st.columns(2)
     with c1:
         with st.container(border=True):
-            st.write("**💻 Development**")
+            st.write("**💻 Development & Systems**")
             st.markdown("- Android Dev (Java/Kotlin)")
             st.markdown("- Web Dev (React JS)")
             st.markdown("- Python Scripting")
+            st.markdown("- OAuth")
     with c2:
         with st.container(border=True):
-            st.write("**⚙️ Systems**")
-            st.markdown("- Linux Administration")
-            st.markdown("- RAID Configuration")
-            st.markdown("- Cloud Architecture (AWS)")
-    with c3:
-        with st.container(border=True):
-            st.write("**🛠️ Tools**")
-            st.markdown("- Git & GitHub")
-            st.markdown("- MySQL Database")
-            st.markdown("- Visual Studio Code")
+            st.write("**🛠️ Tools & Platforms**")
+            st.markdown("Postman, XAMPP, MySQL Database, Visual Studio Code, Sublime Text, Netbeans, IntelliJ, Android Studio, ClickUp, Trello, Slack, Google Console")
 
 with tab2:
     st.header("🚀 Project Portfolio")
