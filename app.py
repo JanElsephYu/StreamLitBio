@@ -259,18 +259,58 @@ with tab1:
             st.markdown("- Visual Studio Code")
 
 with tab2:
-    st.header("Project Portfolio")
+    st.header("🚀 Project Portfolio")
+    st.caption("A showcase of technical solutions developed during my academic career.")
+    
     c1, c2 = st.columns(2)
+    
     with c1:
-        with st.expander("⭐ GIPS (Grocery Indoor Positioning System)"):
-            st.write("Android app for indoor grocery navigation.")
-        with st.expander("🎓 SEMS (Scholarship System)"):
-            st.write("Web/Mobile system for managing CIT-U scholarships.")
+        # GIPS
+        with st.expander("⭐ GIPS (Grocery Indoor Positioning System)", expanded=True):
+            st.write("**Type:** Android Application (Java/Kotlin)")
+            st.write("""
+            A smart indoor navigation solution designed to streamline the grocery shopping experience.
+            
+            **Key Features:**
+            - 🗺️ **Indoor Mapping:** Pinpoints exact aisle locations for specific items.
+            - 🛒 **Smart Cart:** Manages shopping lists and tracks item availability in real-time.
+            - 📍 **Mall Locator:** Integrated feature to find nearby grocery stores.
+            """)
+            
+        # SEMS
+        with st.expander("🎓 SEMS (School Event Management System)", expanded=True):
+            st.write("**Type:** Full Stack Web & Mobile Solution")
+            st.write("""
+            A comprehensive system for managing school events, attendance, and student participation. 
+            Designed to digitize event logistics for administrators and students.
+            """)
+            col_links = st.columns(2)
+            with col_links[0]:
+                st.link_button("Frontend Repo", "https://github.com/darkn38/School-Event-Management-System-Frontend", use_container_width=True)
+            with col_links[1]:
+                st.link_button("Backend Repo", "https://github.com/darkn38/School-Event-Management-System--Backend", use_container_width=True)
+
     with c2:
-        with st.expander("📱 NASMS (Non-Academic Scholar System)"):
-            st.write("Mobile app with PDF conversion for scholars.")
-        with st.expander("⌨️ SyntaxType (Capstone)"):
-            st.write("Gamified typing platform for BSIT freshmen.")
+        # NASMS
+        with st.expander("📱 NASMS (Non-Academic Scholar System)", expanded=True):
+            st.write("**Type:** Mobile Application")
+            st.write("""
+            A dedicated mobile portal for non-academic scholars to manage applications and requirements efficiently.
+            
+            **Key Capabilities:**
+            - 📄 **In-App PDF Conversion:** seamlessly converts images to PDF for document submission.
+            - ☁️ **Cloud Integration:** Direct upload functionality for grades and school IDs.
+            - 🔐 **Secure Authentication:** Robust login and profile management.
+            """)
+            st.link_button("📂 View Source Code", "https://github.com/darkn38/IT342-NAS-APPLICATION-MANAGEMENT-SYSTEM-", use_container_width=True)
+
+        # SyntaxType
+        with st.expander("⌨️ SyntaxType (Capstone Project)", expanded=True):
+            st.write("**Type:** Web Application (React JS)")
+            st.write("""
+            A gamified e-learning platform specifically tailored for BSIT freshmen to master keyboarding skills and programming syntax.
+            Features real-time analytics to track typing speed (WPM) and accuracy.
+            """)
 
 with tab3:
     st.header("Beyond the Code")
